@@ -1,0 +1,35 @@
+.swiper-button-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.swiper-button-prev {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next::after {
+    font-size: 20px;
+    color: white;
+}
+
+.swiper-button-prev::after {
+    font-size: 20px;
+    color: white;
+}
+
+.swiper-button-next:hover{
+    background-color: black;
+}
+
+.swiper-button-prev:hover{
+    background-color: black; 
+}

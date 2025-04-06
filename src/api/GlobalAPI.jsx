@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const CategoryAPIUrl = "https://localhost:44394/api/Category";
-const ProductAPIUrl = "https://localhost:44394/api/Product";
-const SizeAPIUrl = "https://localhost:44394/api/Size";
-const ToppingAPIUrl = "https://localhost:44394/api/Topping";
+const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
+const ProductAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Product";
+const SizeAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Size";
+const ToppingAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Topping";
 
 
 {/* --[API CATEGORIES]------------------------------------------------------ */ }
@@ -71,7 +71,7 @@ export const getAllProducts = (pageSize = 10, pageNumber = 1) => {
         const fetchProducts = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:44394/api/Product?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
+                    `https://nhom6thu4sangca1.onrender.com/api/Product?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
                     {
                         method: "GET",
                         headers: {

@@ -65,7 +65,7 @@ const Footer = () => {
                             </div>
 
                             <form className="mt-6 w-full">
-                                <label htmlFor="UserEmail" className="sr-only"> Email </label>
+                                <label className="sr-only"> Email </label>
 
                                 <div
                                     className="rounded-md border border-gray-100 p-2 focus-within:ring-3 sm:flex sm:items-center sm:gap-4"
@@ -90,7 +90,7 @@ const Footer = () => {
                     <div className="py-8 lg:py-16 lg:pe-16">
                         <div className="hidden text-teal-600 lg:block">
                             <div className="flex items-center gap-2">
-                                <img src="Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="" width={70} />
+                                <img src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="" width={70} />
                                 <h2 className='font-bold text-4xl italic'>Pizza 4 Anh Tai</h2>
                             </div>
                         </div>

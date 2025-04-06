@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from '../components/layout/Slider'
 import CategoryList from '../components/layout/CategoryList'
-import { getAllCategories } from '../api/GlobalAPI';
+import { getAllCategories, getAllProducts } from '../api/GlobalAPI';
 import FoodList from '../components/layout/FoodList';
 import { Food } from '../data/FakeData';
 import Footer from '../components/layout/Footer';
@@ -9,6 +9,9 @@ import Footer from '../components/layout/Footer';
 const Home = () => {
 
   const { categories, loading, error } = getAllCategories();
+  const { products, error_1, totalRecords } = getAllProducts(8, 1);
+
+  console.log("Products: ", products);
 
   return (
     <div className='p-5 md:p-10 px-3 font-primary'>
@@ -21,11 +24,11 @@ const Home = () => {
       {/* Category List - End */}
 
       {/* Food List */}
-      <FoodList foodList={Food}/>
+      <FoodList foodList={products}/>
       {/* Food List - End */}
 
       {/* Banner */}
-      <img src="Images/Banner/Banner-Pizza.jpg" alt="Banner_1" width={1200} height={300} 
+      <img src="/Images/Banner/Banner-Pizza.jpg" alt="Banner_1" width={1200} height={300} 
         className="grid grid-cols-1 w-full h-[350px] rounded-lg object-cover my-10"/>
       {/* Banner - End */}
 

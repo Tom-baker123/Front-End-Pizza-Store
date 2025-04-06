@@ -7,7 +7,7 @@ const ButtonCustom = ({children}) => {
             flex items-center gap-2 cursor-pointer" 
             onClick={() => { }}>
 
-            <img src="Images/Icon/Icon_shopping-cart.png" alt="" width={20} />
+            <img src="/Images/Icon/Icon_shopping-cart.png" alt="" width={20} />
             {children}
 
         </button>

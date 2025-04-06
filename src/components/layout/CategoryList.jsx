@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 const CategoryList = ({ categoriesList }) => {
@@ -11,7 +12,7 @@ const CategoryList = ({ categoriesList }) => {
                     lg:grid-cols-7">
                 {/* --[All Food]---------------------------------------------------------- */}
                 <div className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200">
-                    <img src="Images/Category-Image/Combo.png" alt="icon" width={50} height={50}
+                    <img src="/Images/Category-Image/Combo.png" alt="icon" width={50} height={50}
                         className='group-hover:scale-125 transition-all ease-in-out'
                     />
                     <h2 className='font-bold text-green-800'>ALL</h2>
@@ -21,16 +22,16 @@ const CategoryList = ({ categoriesList }) => {
 
                 {(categoriesList && categoriesList.length > 0) ?
                     categoriesList.map((item, index) => (
-                        <div className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200" key={index} >
-                            <img src="Images/Category-Image/pizza.png" alt="icon" width={50} height={50}
+                        <Link to={`/food-category/` + item.categoryName} className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200" key={index} >
+                            <img src="/Images/Category-Image/pizza.png" alt="icon" width={50} height={50}
                                 className='group-hover:scale-125 transition-all ease-in-out'
                             />
                             <h2 className='font-bold text-green-800'>{item.categoryName}</h2>
-                        </div>
+                        </Link>
                     )) : (
                         <>
                             <div className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200">
-                                <img src="Images/Icon/Fail.png" alt="icon" width={50} height={50}
+                                <img src="/Images/Icon/Fail.png" alt="icon" width={50} height={50}
                                     className='group-hover:scale-125 transition-all ease-in-out'
                                 />
                                 <h2 className='text-red-500 font-bold'>API FAIL</h2>

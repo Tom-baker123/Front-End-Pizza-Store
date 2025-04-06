@@ -1,12 +1,18 @@
 import { LayoutGrid, Search, ShoppingBag } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
-import ButtonMUI from '../common/Mui-Components/ButtonMUI'
 import { getCategoriesList } from '../../api/GlobalAPI';
 import Login from '../../pages/authentication/Login';
-import ModalMUICustom from '../common/Mui-Components/ModalMUICustom';
+import Register from '../../pages/authentication/Register';
+import { useAuth } from '../../context/AuthContext';
+import { Button } from '@mui/material';
+import ButtonMUI from '../common/Mui-Components/ButtonMUI';
+import DropdownMenu from '../common/DropdownMenu';
 
 const Header = () => {
-    // Xử lý nút đóng mở dropdown
+    // Xử lý đăng nhập và đăng ký
+    const { auth, logout } = useAuth();
+
+    // Xử lý sự kiện nhấp chuột bên ngoài dropdown
     const [isDropOpen, setIsDropOpen] = useState(false);
     const toggleDropdown = () => { setIsDropOpen(!isDropOpen); }
     const dropdownRef = useRef(null); // Tạo tham chiếu cho dropdown
@@ -48,7 +54,7 @@ const Header = () => {
             {/* Left Navbar*/}
             <div className='flex items-center gap-8'>
                 {/* --[Main Logo]----------------------------------------------------------- */}
-                <img src="Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={50} height={40} />
+                <img src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={50} height={40} />
                 {/* --[Main Logo - End]----------------------------------------------------- */}
 
                 {/* --[Categories Button]--------------------------------------------------- */}
@@ -72,7 +78,7 @@ const Header = () => {
 
                                     <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer flex gap-2 items-center'
                                         key={index}>
-                                        <img src='Images/Category-Image/fried-chicken.png' alt='icon'
+                                        <img src='/Images/Category-Image/fried-chicken.png' alt='icon'
                                             width={25} />
                                         <h2>{item.categoryName}</h2>
                                     </li>
@@ -102,10 +108,32 @@ const Header = () => {
 
                 {/* --[Login Signup]-------------------------------------------------------- */}
                 <div className="flex gap-2 items-center">
-                    
-                    {/* <ButtonMUI variant="outlined">Login</ButtonMUI> */}
-                    <Login/>
-                    <ButtonMUI variant="contained">Register</ButtonMUI>
+                    {auth?.token ? (
+                        <>
+                            <DropdownMenu>
+                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
+                                    <span className='text-sm font-semibold'>
+                                        👋 Hi, <span className="text-primary font-bold te">{auth.fullName}</span>
+                                    </span>
+                                </li>
+                                <hr className='border-gray-300 my-1' />
+                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer' > profile </li>
+                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 font-bold' onClick={logout}> Logout </li>
+                            </DropdownMenu>
+
+                            {/* <span className='text-sm font-semibold'>
+                                👋 Hello, <span className="text-primary font-bold te">{auth.fullName}</span>
+                            </span>
+                            <ButtonMUI variant="outlined" onClick={logout}>Logout</ButtonMUI> */}
+                        </>
+                    ) : (
+                        <>
+                            <Login />
+                            <Register />
+                        </>
+                    )
+                    }
+
 
                 </div>
                 {/* --[Login Signup - End]-------------------------------------------------- */}

@@ -12,7 +12,7 @@ const Slider = () => {
   return (
     <div className="select-none flex justify-center">
       <Swiper
-        style={{'--swiper-pagination-color': '#fff',}}
+        style={{'--swiper-pagination-color': '#fff'}}
         spaceBetween={50}
         slidesPerView={1}
         navigation
@@ -23,9 +23,8 @@ const Slider = () => {
         {slider.map((slider) => (
           <SwiperSlide style={{ display: "flex", justifyContent: "center" }}>
             <img src={slider.url} alt={slider.id} width={1000} height={400}
-              className="rounded-2xl object-cover w-full 
-              h-[250px]
-              md:h-[400px]" 
+              className="rounded-2xl object-contain w-full 
+              md:h-[400px] md:object-cover" 
               />
           </SwiperSlide>
         ))}

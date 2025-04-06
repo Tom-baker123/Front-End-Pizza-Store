@@ -9,7 +9,7 @@ const Verified = () => {
   useEffect(() => {
     const verifyAccount = async () => {
       try {
-        const res = await fetch(`https://localhost:44394/api/auth/activate?token=${token}`);
+        const res = await fetch(`https://nhom6thu4sangca1.onrender.com/api/auth/activate?token=${token}`);
         const data = await res.json();
         if (res.ok && data.success) {
           toast.success("Xác minh tài khoản thành công. Hãy đăng nhập!");

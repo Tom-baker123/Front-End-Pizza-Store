@@ -11,8 +11,8 @@ const FoodList = ({ foodList }) => {
             xl:grid-cols-5
             2xl:grid-cols-6
             gap-5 mt-6' >
-                {foodList.map((food, index) => (
-                    <FoodItem food={food} key={index}/>
+                {foodList.map((t) => (
+                    <FoodItem food={t} key={t.id}/>
                 ))}
             </div>
 

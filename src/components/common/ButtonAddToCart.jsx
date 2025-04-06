@@ -6,8 +6,7 @@ const ButtonAddToCart = ({children}) => {
         text-white bg-green-600 hover:bg-green-800 transition-all
             flex items-center gap-2 cursor-pointer" 
             onClick={() => { }}>
-
-            <img src="Images/Icon/Icon_shopping-cart.png" alt="" width={20} />
+            <img src="/Images/Icon/Icon_shopping-cart.png" alt="" width={15} />
             {children}
 
         </button>

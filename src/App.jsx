@@ -3,24 +3,28 @@ import './App.css'
 import MuiTheme from './theme/MuiTheme';
 import RouterSetup from './router/RouterSetup';
 import Header from './components/layout/Header';
+import { AuthProvider } from './context/AuthContext';
 
-function App({children}) {
+function App({ children }) {
 
-  return ( <>
+  return (<>
     {/* -[Theme của MUI]---------------------------- */}
     <ThemeProvider theme={MuiTheme}>
-      
-      <Header/>
-      {children}
 
-      
-      {/* -[Setup Router]----------------------------- */}
-      <RouterSetup/>
-      {/* -[Setup Router - End]----------------------- */}
+      {/* -[Authentication]--------------------------- */}
+      <AuthProvider>
+        <Header />
+        {children}
 
+        {/* -[Setup Router]----------------------------- */}
+        <RouterSetup />
+        {/* -[Setup Router - End]----------------------- */}
+
+      </AuthProvider>
+      {/* -[Authentication - End]--------------------- */}
     </ThemeProvider>
     {/* -[Theme của MUI - End]---------------------- */}
-  </> );
+  </>);
 }
 
 export default App

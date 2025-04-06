@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-const DropdownMenu = () => {
+const DropdownMenu = ({children}) => {
     const [isDropOpen, setIsDropOpen] = useState(false);
     const dropdownRef = useRef(null); // Tạo tham chiếu cho dropdown
 
@@ -27,13 +27,13 @@ const DropdownMenu = () => {
 
     return (
         <div className="relative" ref={dropdownRef}>
-            <div className="cursor-pointer" onClick={toogleDropdown}>Click Me</div>
+            <div className="cursor-pointer" onClick={toogleDropdown}>
+                <img className='text-amber-100 font-primary' src="/Images/Icon/Profile-user.png" alt="Menu_Icon" width={30}/>
+            </div>
             {isDropOpen && (
-                <div className="absolute top-full left-0">
+                <div className="absolute top-full right-0 z-20">
                     <ul className='w-44 mt-1 py-2 bg-white shadow-lg rounded-lg border border-gray-200'>
-                        <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>Pizza</li>
-                        <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>Drinks</li>
-                        <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>Spaghetti</li>
+                        {children}
                     </ul>
                 </div>
             )}

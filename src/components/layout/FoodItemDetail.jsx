@@ -1,41 +1,35 @@
 import React, { useState } from 'react'
-import ButtonCustom from '../common/ButtonCustom'
 import ButtonAddToCart from '../common/ButtonAddToCart'
 import SizeButtonList from '../common/SizeButtonList';
-import ToppingButton from '../common/ToppingButton';
 
 const FoodItemDetail = ({ food }) => {
 
-    const [foodTotalPrice, setFoodTotalPrice] = useState(
-        food.price
-    );
-
+    const [foodTotalPrice, setFoodTotalPrice] = useState(food.price ? food.price : 0);
     const [quantity, setquantity] = useState(1);
+
+    // Hàm xử lý khi chọn size
+    const handleSizeChange = (additionalPrice) => {
+        setFoodTotalPrice(food.price + additionalPrice); // Cập nhật giá tổng
+    };
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 px-7 
         bg-white text-black'>
-            <img src={food.url} alt={food.name} width={300} height={300}
-                className='p-5 sm:h-[350px] w-[320px] bg-slate-200 
-                object-contain rounded-md sticky top-0'
+            <img src={food.imageURL} alt={food.name} width={300} height={300}
+                className='mx-auto p-5 sm:h-[350px] w-[320px] bg-slate-200 
+                object-contain rounded-md md:sticky md:top-0'
             />
             <div className="flex flex-col gap-3 mt-3 sm:mt-0">
                 <h2 className='text-2xl font-bold'>{food.name}</h2>
-                <h2 className='text-sm font-bold text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quis hic explicabo blanditiis excepturi omnis? Minima </h2>
+                <h2 className='text-sm font-bold text-gray-500'>{food.description}</h2>
                 <div className="flex gap-3 text-2xl items-center">
                     <h2 className='font-bold'> {food.price} VND</h2>
                     <h2 className='line-through text-sm text-gray-500'>{food.price} VND</h2>
                 </div>
 
-                <h2 className='font-bold'> Quantity (8 Slice)</h2>
-
-                <h2 className='hidden'> = {(quantity * foodTotalPrice).toFixed(2)} </h2>
                 
                 <h2 className='font-bold'> Size </h2>
-                <SizeButtonList /> <hr />
-
-                <h2 className='font-bold'> Topping for pizza crust</h2>
-                <ToppingButton /> <hr />
+                <SizeButtonList onSizeChange={handleSizeChange}/> <hr />   
 
                 <div className="flex items-center gap-2 justify-between">
                     <div className="">
@@ -46,10 +40,9 @@ const FoodItemDetail = ({ food }) => {
                             <button className='cursor-pointer' onClick={() => setquantity(quantity + 1)}>+</button>
                         </div>
                     </div>
-
-                    <ButtonAddToCart> Add To Cart </ButtonAddToCart>
+                    <ButtonAddToCart> Cart </ButtonAddToCart>
                 </div>
-                <h2> <span className='text-sm font-bold'>Category </span> ... </h2>
+                <h2>{(quantity * foodTotalPrice).toFixed(0)} VND</h2>
             </div>
         </div>
     )

@@ -23,31 +23,37 @@ const FoodCategory = () => {
 
   return (
     <div className="p-5 md:px-10 px-3 font-primary">
-      <div className="grid grid-cols-1 md:grid-cols-12"
+      <div className=""
       >
-        <div className="col-span-3">
+        <div className="">
           <CategoryPanel categoriesList={categories} selectedCategory={categoryId} />
         </div>
-        <div className="col-span-9">
-        <div className="flex items-center gap-3">
-            <label htmlFor="pageSize" className="text-sm font-medium">
-              Số sản phẩm / trang:
-            </label>
+        <div >
+          <div className="flex justify-between items-center gap-3 my-5">
 
-            <input
-              id="pageSize" type="number" value={pageSize}min={5}
-              onChange={(e) => {
-                const newSize = parseInt(e.target.value);
-                setPageSize(isNaN(newSize) ? 5 : Math.max(newSize, 5));
-              }}
-              className="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+            <h2 className='text-green-600 font-bold text-2xl'> {category?.categoryName || "No Menu Select"} Menu</h2>
+
+            <div className="">
+              <label htmlFor="pageSize" className="text-sm font-medium">
+                Số sản phẩm / trang:
+              </label>
+              <input
+                id="pageSize" type="number" value={pageSize} min={5}
+                onChange={(e) => {
+                  const newSize = parseInt(e.target.value);
+                  setPageSize(isNaN(newSize) ? 5 : Math.max(newSize, 5));
+                }}
+                className="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
           </div>
-          <FoodList foodList={product} menuName={`${category?.categoryName || "No Menu Select"} Menu`} />
+          {/* DANH SÁCH SẢN PHẨM */}
+
+          <FoodList foodList={product} menuName={""} />
 
           <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}>Trang trước</button><br />
           <button onClick={() => setPageNumber(pageNumber + 1)}>Trang sau</button><br />
-          <Pagination/>
+          <Pagination />
         </div>
       </div>
     </div>

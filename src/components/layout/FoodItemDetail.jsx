@@ -31,9 +31,13 @@ const FoodItemDetail = ({ food }) => {
                 <h2 className='font-bold'> Size </h2>
                 <SizeButtonList onSizeChange={handleSizeChange}/> <hr />   
 
-                <div className="flex items-center gap-2 justify-between">
+                <div className="
+                flex flex-col gap-3
+                md:flex md:flex-row md:items-center md:gap-2 md:justify-between
+                lg:flex lg:flex-row lg:items-center lg:gap-2 lg:justify-between">
                     <div className="">
-                        <div className="p-2 border flex gap-10 items-center rounded-md font-bold px-8">
+                        <div className="flex p-2 border gap-10 justify-between
+                        items-center rounded-md font-bold px-8">
                             <button className='cursor-pointer'
                                 disabled={quantity == 1} onClick={() => setquantity(quantity - 1)}>-</button>
                             <h2>{quantity}</h2>

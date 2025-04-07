@@ -11,8 +11,6 @@ const Home = () => {
   const { categories, loading, error } = getAllCategories();
   const { products, error_1, totalRecords } = getAllProducts(8, 1);
 
-  console.log("Products: ", products);
-
   return (
     <div className='p-5 md:p-10 px-3 font-primary'>
       {/* Slider */}

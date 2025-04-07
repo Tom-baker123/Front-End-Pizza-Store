@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Button } from '@mui/material';
 import ButtonMUI from '../common/Mui-Components/ButtonMUI';
 import DropdownMenu from '../common/DropdownMenu';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     // Xử lý đăng nhập và đăng ký
@@ -54,7 +55,9 @@ const Header = () => {
             {/* Left Navbar*/}
             <div className='flex items-center gap-8'>
                 {/* --[Main Logo]----------------------------------------------------------- */}
-                <img src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={50} height={40} />
+                <a href="/">
+                    <img src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={50} height={40} />
+                </a>
                 {/* --[Main Logo - End]----------------------------------------------------- */}
 
                 {/* --[Categories Button]--------------------------------------------------- */}
@@ -76,12 +79,12 @@ const Header = () => {
                                 {loading && <p className='px-4 py-2 font-bold'>{loading}</p>}
                                 {categoriesList.map((item, index) => (
 
-                                    <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer flex gap-2 items-center'
+                                    <Link to={`/food-category/` + item.categoryId} className='px-4 py-2 hover:bg-gray-100 cursor-pointer flex gap-2 items-center'
                                         key={index}>
                                         <img src='/Images/Category-Image/fried-chicken.png' alt='icon'
                                             width={25} />
                                         <h2>{item.categoryName}</h2>
-                                    </li>
+                                    </Link>
                                 ))}
                             </ul>
                         </div>

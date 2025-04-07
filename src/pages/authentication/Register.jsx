@@ -13,8 +13,6 @@ const Register = () => {
     const navigate = useNavigate(); // Dùng để điều hướng đến trang khác
 
     const onSubmit = async (data) => {
-        console.log(data.password); // In ra dữ liệu từ form
-        console.log(data.confirmPassword); // In ra dữ liệu từ form
         
         
         if (data.password != data.confirmPassword) {

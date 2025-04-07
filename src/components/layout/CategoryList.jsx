@@ -22,7 +22,7 @@ const CategoryList = ({ categoriesList }) => {
 
                 {(categoriesList && categoriesList.length > 0) ?
                     categoriesList.map((item, index) => (
-                        <Link to={`/food-category/` + item.categoryName} className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200" key={index} >
+                        <Link to={`/food-category/` + item.categoryId} className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200" key={index} >
                             <img src="/Images/Category-Image/pizza.png" alt="icon" width={50} height={50}
                                 className='group-hover:scale-125 transition-all ease-in-out'
                             />

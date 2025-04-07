@@ -15,7 +15,9 @@ const CategoryList = ({ categoriesList }) => {
                     <img src="/Images/Category-Image/Combo.png" alt="icon" width={50} height={50}
                         className='group-hover:scale-125 transition-all ease-in-out'
                     />
-                    <h2 className='font-bold text-green-800'>ALL</h2>
+                    <Link to={`/food-category/all`}>
+                        <h2 className='font-bold text-green-800'>ALL</h2>
+                    </Link>
                 </div>
                 {/* --[All Food]---------------------------------------------------------- */}
 

@@ -5,8 +5,6 @@ import CategoryPanel from '../components/layout/CategoryPanel';
 import FoodList from '../components/layout/FoodList';
 import Pagination from '../components/common/Pagination';
 
-
-
 const FoodCategory = () => {
   const { categoryId } = useParams();
   // Lấy API

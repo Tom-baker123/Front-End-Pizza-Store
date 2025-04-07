@@ -10,11 +10,12 @@ const CategoryPanel = ({ categoriesList, selectedCategory }) => {
                 <h2 className='text-green-600 font-bold text-2xl'> Menu </h2>
                 <div className="flex flex-wrap gap-2">
                     {/* --[All Food]---------------------------------------------------------- */}
-                    <div className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200">
-                        <Link to={`/food-category/all`}>
-                            <h2 className='font-bold text-green-800'>ALL</h2>
-                        </Link>
-                    </div>
+                    <Link to={`/food-category/all`} 
+                        className={`flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200
+                        ${String(selectedCategory) === "all" && 'bg-green-300 text-white'}`}
+                    >
+                        <h2 className='font-bold text-green-800'>ALL</h2>
+                    </Link>
                     {/* --[All Food]---------------------------------------------------------- */}
 
 

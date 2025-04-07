@@ -8,21 +8,19 @@ import Pagination from '../components/common/Pagination';
 const FoodCategory = () => {
   const { categoryId } = useParams();
   // Lấy API
-  const { products, error_1 } = getAllProducts(5, 1);
+  const { products, error_1 } = getAllProducts("", "");
   const { category, loading_2, error_2 } = getCategoryById(categoryId);
   const { categories, loading_3, error_3 } = getAllCategories();
-
 
 
   const [pageSize, setPageSize] = useState(5);     // số sản phẩm mỗi trang
   const [pageNumber, setPageNumber] = useState(1);   // trang hiện tại
   const { product, loading, error, totalRecords } = getAllProductsByCategory(pageSize, pageNumber, categoryId);
-
+  const totalPages = Math.ceil(totalRecords / pageSize) || 1; // Đảm bảo ít nhất có 1 trang
 
   return (
     <div className="p-5 md:px-10 px-3 font-primary">
-      <div className=""
-      >
+      <div>
         <div className="">
           <CategoryPanel categoriesList={categories} selectedCategory={categoryId} />
         </div>
@@ -47,11 +45,16 @@ const FoodCategory = () => {
           </div>
           {/* DANH SÁCH SẢN PHẨM */}
 
-          <FoodList foodList={product} menuName={""} />
+          <FoodList foodList={categoryId == "all" ? products: product}/>
 
-          <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}>Trang trước</button><br />
-          <button onClick={() => setPageNumber(pageNumber + 1)}>Trang sau</button><br />
-          <Pagination />
+          {/* <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}>Trang trước</button><br />
+          <button onClick={() => setPageNumber(pageNumber + 1)}>Trang sau</button><br /> */}
+          {totalRecords > 0 &&(
+          <Pagination
+            currentPage={pageNumber}
+            totalPages={totalRecords}
+            onPageChange={(page) => setPageNumber(Math.max(1, Math.min(page, totalRecords)))}
+          />)}
         </div>
       </div>
     </div>

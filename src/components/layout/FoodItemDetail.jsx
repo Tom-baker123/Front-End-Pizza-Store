@@ -12,6 +12,11 @@ const FoodItemDetail = ({ food }) => {
         setFoodTotalPrice(food.price + additionalPrice); // Cập nhật giá tổng
     };
 
+    // Hàm xử lý Add to cart
+    const addToCart = () => {
+
+    }
+
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 px-7 
         bg-white text-black'>
@@ -23,7 +28,7 @@ const FoodItemDetail = ({ food }) => {
                 <h2 className='text-2xl font-bold'>{food.name}</h2>
                 <h2 className='text-sm font-bold text-gray-500'>{food.description}</h2>
                 <div className="flex gap-3 text-2xl items-center">
-                    <h2 className='font-bold'> {food.price} VND</h2>
+                    <h2 className='font-bold'> {(quantity * foodTotalPrice).toFixed(0)} VND</h2> {/* {food.price} */}
                     <h2 className='line-through text-sm text-gray-500'>{food.price} VND</h2>
                 </div>
 
@@ -37,16 +42,16 @@ const FoodItemDetail = ({ food }) => {
                 lg:flex lg:flex-row lg:items-center lg:gap-2 lg:justify-between">
                     <div className="">
                         <div className="flex p-2 border gap-10 justify-between
-                        items-center rounded-md font-bold px-8">
+                        items-center rounded-md font-bold px-5">
                             <button className='cursor-pointer'
                                 disabled={quantity == 1} onClick={() => setquantity(quantity - 1)}>-</button>
                             <h2>{quantity}</h2>
                             <button className='cursor-pointer' onClick={() => setquantity(quantity + 1)}>+</button>
                         </div>
                     </div>
-                    <ButtonAddToCart> Cart </ButtonAddToCart>
+                    <ButtonAddToCart onClick={() => addToCart()}> Add to Cart </ButtonAddToCart>
                 </div>
-                <h2>{(quantity * foodTotalPrice).toFixed(0)} VND</h2>
+                {/* <h2>{(quantity * foodTotalPrice).toFixed(0)} VND</h2> */}
             </div>
         </div>
     )

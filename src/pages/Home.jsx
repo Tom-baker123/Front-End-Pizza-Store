@@ -22,7 +22,7 @@ const Home = () => {
       {/* Category List - End */}
 
       {/* Food List */}
-      <FoodList foodList={products}/>
+      <FoodList foodList={products} menuName={"Popular menu"}/>
       {/* Food List - End */}
 
       {/* Banner */}

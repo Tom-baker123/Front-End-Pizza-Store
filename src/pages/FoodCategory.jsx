@@ -1,31 +1,55 @@
-import React from 'react'
-import { getAllCategories, getAllProductsByCategory, getCategoryById } from '../api/GlobalAPI'
+import React, { useState } from 'react'
+import { getAllCategories, getAllProducts, getAllProductsByCategory, getCategoryById } from '../api/GlobalAPI'
 import { useParams } from 'react-router-dom'
-import Pagination from '../components/common/Pagination';
 import CategoryPanel from '../components/layout/CategoryPanel';
-import FilterCategory from '../components/layout/FilterCategory';
+import FoodList from '../components/layout/FoodList';
+import Pagination from '../components/common/Pagination';
+
+
 
 const FoodCategory = () => {
   const { categoryId } = useParams();
-  const { products, error } = getAllProductsByCategory(5,1,categoryId);
-  const { categoriesById, loading, error_1} = getCategoryById(categoryId);
-  const { categories, loading_2, error_2 } = getAllCategories();
-  
-  // if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  // Lấy API
+  const { products, error_1 } = getAllProducts(5, 1);
+  const { category, loading_2, error_2 } = getCategoryById(categoryId);
+  const { categories, loading_3, error_3 } = getAllCategories();
+
+
+
+  const [pageSize, setPageSize] = useState(5);     // số sản phẩm mỗi trang
+  const [pageNumber, setPageNumber] = useState(1);   // trang hiện tại
+  const { product, loading, error, totalRecords } = getAllProductsByCategory(pageSize, pageNumber, categoryId);
 
 
   return (
-    <div className="p-5 md:p-10 px-3 font-primary">
-      <FilterCategory/>
-      <CategoryPanel categoriesList={categories}/>
+    <div className="p-5 md:px-10 px-3 font-primary">
+      <div className="grid grid-cols-1 md:grid-cols-12"
+      >
+        <div className="col-span-3">
+          <CategoryPanel categoriesList={categories} selectedCategory={categoryId} />
+        </div>
+        <div className="col-span-9">
+        <div className="flex items-center gap-3">
+            <label htmlFor="pageSize" className="text-sm font-medium">
+              Số sản phẩm / trang:
+            </label>
 
-      <h2 className='text-green-600 font-bold text-2xl'> {categories?.categoryName || "No Menu Select" } </h2>
-      {products.map((product) => (
-        <div className="" key={product.id}> {product.name}</div>
-      ))}
+            <input
+              id="pageSize" type="number" value={pageSize}min={5}
+              onChange={(e) => {
+                const newSize = parseInt(e.target.value);
+                setPageSize(isNaN(newSize) ? 5 : Math.max(newSize, 5));
+              }}
+              className="w-20 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <FoodList foodList={product} menuName={`${category?.categoryName || "No Menu Select"} Menu`} />
 
-      <Pagination/>
+          <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}>Trang trước</button><br />
+          <button onClick={() => setPageNumber(pageNumber + 1)}>Trang sau</button><br />
+          <Pagination/>
+        </div>
+      </div>
     </div>
   )
 }

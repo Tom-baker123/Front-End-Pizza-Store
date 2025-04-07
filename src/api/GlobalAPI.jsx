@@ -62,36 +62,41 @@ export const getAllCategories = () => {
     return { categories, loading, error };
 };
 export const getCategoryById = (categoryId) => {
-    const [categories, setCategories] = useState();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const response = await fetch(`${CategoryAPIUrl}/${categoryId}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error("Không lấy được API");
-                }
-                const data = await response.json();
-                setCategories(data?.value|| "");
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchCategories();
-    }, []);
+  useEffect(() => {
+    if (!categoryId) return;
 
-    return { categories, loading, error };
-}
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch(`${CategoryAPIUrl}/${categoryId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Không lấy được API");
+        }
+
+        const data = await response.json();
+        setCategory(data.value); // 🔥 Sửa chỗ này
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategory();
+  }, [categoryId]);
+
+  return { category, loading, error };
+};
 
 
 {/* --[API PRODUCT]--------------------------------------------------------- */ }
@@ -105,7 +110,7 @@ export const getAllProducts = (pageSize = 10, pageNumber = 1) => {
         const fetchProducts = async () => {
             try {
                 const response = await fetch(
-                    `https://nhom6thu4sangca1.onrender.com/api/Product?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
+                    `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
                     {
                         method: "GET",
                         headers: {
@@ -132,9 +137,8 @@ export const getAllProducts = (pageSize = 10, pageNumber = 1) => {
 
     return { products, loading, error, totalRecords };
 };
-
 export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryId) => {
-    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [totalRecords, setTotalRecords] = useState(0);
@@ -142,7 +146,7 @@ export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryI
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`${ProductAPIUrlLocal}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
+                const response = await fetch(`${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
                     {
                         method: "GET",
                         headers: {
@@ -155,7 +159,7 @@ export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryI
                     throw new Error("Không lấy được dữ liệu sản phẩm");
                 }
                 const data = await response.json();
-                setProducts(data.records || []);
+                setProduct(data.records || []);
                 setTotalRecords(data.totalRecords || 0);
             } catch (error) {
                 setError(error.message);
@@ -165,9 +169,9 @@ export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryI
         };
 
         fetchProducts();
-    }, [categoryId]); // Thêm pageSize và pageNumber vào dependency array
+    }, [categoryId, pageSize, pageNumber]); // Thêm pageSize và pageNumber vào dependency array
 
-    return { products, error ,totalRecords };
+    return { product, loading, error ,totalRecords };
 };
 
 

@@ -1,5 +1,5 @@
-import { LayoutGrid, Search, ShoppingBag } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { LayoutGrid, Search, ShoppingBag } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getCategoriesList } from '../../api/GlobalAPI';
 import Login from '../../pages/authentication/Login';
 import Register from '../../pages/authentication/Register';
@@ -45,22 +45,26 @@ const Header = () => {
                 setCategoriesList(data.value?.records || []);
                 setLoading(false);
             } catch (error) {
-                setError("Can't get API")
+                setError("Can't get API");
                 setLoading(false);
             }
-        }
+        };
         getCategories();
     }, []);
-
 
     // Chức năng Quay lại trang chủ
     const handleToHome = () => {
         navigate("/");
-    }
+    };
+
+    // Chức năng chuyển hướng đến trang giỏ hàng
+    const handleToCart = () => {
+        navigate("/cart");
+    };
 
     return (
         <div className='p-5 shadow-md flex justify-between items-center font-primary'>
-            {/* Left Navbar*/}
+            {/* Left Navbar */}
             <div className='flex items-center gap-8'>
                 {/* --[Main Logo]----------------------------------------------------------- */}
                 <img className='cursor-pointer' onClick={() => handleToHome()} src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={45} />
@@ -84,7 +88,6 @@ const Header = () => {
                                 {error && <p className='px-4 py-2 font-bold text-red-500'>{error}</p>}
                                 {loading && <p className='px-4 py-2 font-bold'>{loading}</p>}
                                 {categoriesList.map((item, index) => (
-
                                     <Link to={`/food-category/` + item.categoryId} className='px-4 py-2 hover:bg-gray-100 cursor-pointer flex gap-2 items-center'
                                         key={index}>
                                         <img src='/Images/Category-Image/fried-chicken.png' alt='icon'
@@ -99,14 +102,14 @@ const Header = () => {
                 {/* --[Categories Button - End]--------------------------------------------- */}
 
                 {/* --[Ô tìm kiếm]---------------------------------------------------------- */}    
-                <SearchInput/>
+                <SearchInput />
                 {/* --[Ô tìm kiếm - End]---------------------------------------------------- */}
             </div>
 
             {/* Right Navbar */}
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
-                <h2 className='flex gap-2 items-center text-lg'>
+                <h2 className='flex gap-2 items-center text-lg' onClick={handleToCart}>
                     <ShoppingBag /> <label>0 </label>
                 </h2>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
@@ -135,15 +138,12 @@ const Header = () => {
                             <Login />
                             <Register />
                         </>
-                    )
-                    }
-
-
+                    )}
                 </div>
                 {/* --[Login Signup - End]-------------------------------------------------- */}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

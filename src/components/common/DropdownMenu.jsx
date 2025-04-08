@@ -28,7 +28,7 @@ const DropdownMenu = ({children}) => {
     return (
         <div className="relative" ref={dropdownRef}>
             <div className="cursor-pointer" onClick={toogleDropdown}>
-                <img className='text-amber-100 font-primary' src="/Images/Icon/Profile-user.png" alt="Menu_Icon" width={30}/>
+                <img className='text-amber-100 font-primary' src="/Images/Icon/Profile-user.png" alt="Menu_Icon" width={35}/>
             </div>
             {isDropOpen && (
                 <div className="absolute top-full right-0 z-20">

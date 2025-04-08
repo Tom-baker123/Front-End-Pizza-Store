@@ -4,13 +4,14 @@ import { getCategoriesList } from '../../api/GlobalAPI';
 import Login from '../../pages/authentication/Login';
 import Register from '../../pages/authentication/Register';
 import { useAuth } from '../../context/AuthContext';
-import { Button } from '@mui/material';
-import ButtonMUI from '../common/Mui-Components/ButtonMUI';
 import DropdownMenu from '../common/DropdownMenu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
 
 const Header = () => {
+    // Xử lý điều hướng
+    const navigate = useNavigate();
+    
     // Xử lý đăng nhập và đăng ký
     const { auth, logout } = useAuth();
 
@@ -51,14 +52,18 @@ const Header = () => {
         getCategories();
     }, []);
 
+
+    // Chức năng Quay lại trang chủ
+    const handleToHome = () => {
+        navigate("/");
+    }
+
     return (
         <div className='p-5 shadow-md flex justify-between items-center font-primary'>
             {/* Left Navbar*/}
             <div className='flex items-center gap-8'>
                 {/* --[Main Logo]----------------------------------------------------------- */}
-                <a href="/">
-                    <img src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={50} height={40} />
-                </a>
+                <img className='cursor-pointer' onClick={() => handleToHome()} src="/Images/Main-Logo/logo-pizza-4-anh-tai.png" alt="Logo" width={45} />
                 {/* --[Main Logo - End]----------------------------------------------------- */}
 
                 {/* --[Categories Button]--------------------------------------------------- */}
@@ -117,14 +122,13 @@ const Header = () => {
                                     </span>
                                 </li>
                                 <hr className='border-gray-300 my-1' />
-                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer' > profile </li>
+                                <li id='profile' className='px-4 py-2 hover:bg-gray-100 cursor-pointer' > 
+                                    <Link to={"/profile/general"}>
+                                        Profile 
+                                    </Link> 
+                                </li>
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 font-bold' onClick={logout}> Logout </li>
                             </DropdownMenu>
-
-                            {/* <span className='text-sm font-semibold'>
-                                👋 Hello, <span className="text-primary font-bold te">{auth.fullName}</span>
-                            </span>
-                            <ButtonMUI variant="outlined" onClick={logout}>Logout</ButtonMUI> */}
                         </>
                     ) : (
                         <>

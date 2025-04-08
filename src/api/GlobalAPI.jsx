@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
-const ProductAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Product";
-
 // const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
-
-const SizeAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Size";
-const ToppingAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Topping";
+const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
+const ProductAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Product";
+const SizeAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Size";
+const ToppingAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Topping";
+const promotionAPI   = "https://nhom6thu4sangca1.onrender.com/api/promotion"
+const cartAPI        = "https://nhom6thu4sangca1.onrender.com/api/Cart";
+// const UserAPi        = "https://localhost:44394/api/Auth/users";
 
 
 {/* --[API CATEGORIES]------------------------------------------------------ */ }
@@ -256,7 +257,7 @@ export const getPromotion = () => {
     useEffect(() => {
         const fetchTopping = async () => {
             try {
-                const response = await fetch(ToppingAPIUrl, {
+                const response = await fetch(promotionAPI, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -282,7 +283,28 @@ export const getPromotion = () => {
 
 
 {/* --[API CART]------------------------------------------------------------ */ }
+export const postCart = async (data) => {
+    // const Token = localStorage.getItem("token")
+    
+    const res = await fetch(`${cartAPI}`, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${Token}`, // Truyền token vào header,
+        },
+        body: JSON.stringify(data),
+    });
+
+    const result = await res.json()
+
+    if(!res.ok){
+        throw Error(result.message || "Can't add to your cart");
+    }
+
+    return result;
+};
+
+{/* --[API USER]------------------------------------------------------------ */ }
 
 
-{/* --[API CART]------------------------------------------------------------ */ }
 

@@ -11,7 +11,9 @@ import SearchInput from './SearchInput';
 const Header = () => {
     // Xử lý điều hướng
     const navigate = useNavigate();
-    
+
+    const isAdmin = localStorage.getItem("role");
+
     // Xử lý đăng nhập và đăng ký
     const { auth, logout } = useAuth();
 
@@ -101,7 +103,7 @@ const Header = () => {
                 </div>
                 {/* --[Categories Button - End]--------------------------------------------- */}
 
-                {/* --[Ô tìm kiếm]---------------------------------------------------------- */}    
+                {/* --[Ô tìm kiếm]---------------------------------------------------------- */}
                 <SearchInput />
                 {/* --[Ô tìm kiếm - End]---------------------------------------------------- */}
             </div>
@@ -109,9 +111,9 @@ const Header = () => {
             {/* Right Navbar */}
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
-                <h2 className='flex gap-2 items-center text-lg' onClick={handleToCart}>
+                <Link to={"/cart"} className='flex gap-2 items-center text-lg' onClick={handleToCart}>
                     <ShoppingBag /> <label>0 </label>
-                </h2>
+                </Link>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
 
                 {/* --[Login Signup]-------------------------------------------------------- */}
@@ -125,10 +127,16 @@ const Header = () => {
                                     </span>
                                 </li>
                                 <hr className='border-gray-300 my-1' />
-                                <li id='profile' className='px-4 py-2 hover:bg-gray-100 cursor-pointer' > 
+                                <li id='profile' className='px-4 py-2 hover:bg-gray-100 cursor-pointer' >
                                     <Link to={"/profile/general"}>
-                                        Profile 
-                                    </Link> 
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
+                                    {/* {kiem tra if day}  */}
+                                    {isAdmin != "Customer" ? (
+                                        <a href="https://nhom6thu4ca1feadmin.vercel.app/admin">Admin Dashboard</a>
+                                    ) : (<></>)}
                                 </li>
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 font-bold' onClick={logout}> Logout </li>
                             </DropdownMenu>

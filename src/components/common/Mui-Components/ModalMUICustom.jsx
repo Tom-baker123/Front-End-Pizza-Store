@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import { useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef } from 'react'
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonMUI from './ButtonMUI';
+
 
 const ModalMUICustom = ({children, nameButton, variant, open, onOpen, onClose}) => {
     // Rất quan trọng phải nhớ thêm để giữ focus trong modal
@@ -36,3 +36,5 @@ const ModalMUICustom = ({children, nameButton, variant, open, onOpen, onClose}) 
 }
 
 export default ModalMUICustom
+
+

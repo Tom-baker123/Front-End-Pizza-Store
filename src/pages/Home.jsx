@@ -1,15 +1,19 @@
 import React from 'react'
 import Slider from '../components/layout/Slider'
 import CategoryList from '../components/layout/CategoryList'
-import { getAllCategories, getAllProducts } from '../api/GlobalAPI';
+import { getAllCategories, getAllProducts, getPromotion } from '../api/GlobalAPI';
 import FoodList from '../components/layout/FoodList';
-import { Food } from '../data/FakeData';
 import Footer from '../components/layout/Footer';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Home = () => {
 
   const { categories, loading, error } = getAllCategories();
   const { products, error_1, totalRecords } = getAllProducts(8, 1);
+  const { promotion, loading_2, error_2 } = getPromotion();
+
+
+  console.log("Promotion",promotion)
 
   return (
     <div className='p-5 md:p-10 px-3 font-primary'>
@@ -33,6 +37,8 @@ const Home = () => {
       {/* Footer */}
       <Footer/>
       {/* Footer - End */}
+
+      
     </div>
   )
 }

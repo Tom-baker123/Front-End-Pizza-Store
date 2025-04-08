@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
         token: localStorage.getItem('token'), // Lấy token từ localStorage
         role: localStorage.getItem('role'), // Lấy role từ localStorage
         fullName: localStorage.getItem('fullName'), // Lấy fullName từ localStorage
+        userID: localStorage.getItem('userID'),
     }); // Lưu trạng thái auth
 
     // Khi đăng nhập thành công thì lưu token vào localStorage
@@ -15,13 +16,14 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', data.token); // Lưu token vào localStorage
         localStorage.setItem('role', data.role); // Lưu role vào localStorage
         localStorage.setItem('fullName', data.fullName); // Lưu fullName vào localStorage
-        setAuth({ token: data.token, role: data.role, fullName: data.fullName }); // Lưu trạng thái auth từ data
+        localStorage.setItem('userID', data.userID);
+        setAuth({ token: data.token, role: data.role, fullName: data.fullName, userID: data.userID}); // Lưu trạng thái auth từ data
     };
 
     // Khi logout thì xóa token khỏi localStorage
     const logout = (token) => {
         localStorage.clear(); // Xóa token khỏi localStorage
-        setAuth({ token: null, role: null, fullName: null }); // Xóa trạng thái auth
+        setAuth({ token: null, role: null, fullName: null, userID: null }); // Xóa trạng thái auth
     };
 
     return(

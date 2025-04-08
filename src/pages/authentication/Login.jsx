@@ -21,13 +21,15 @@ const Login = () => {
             login(res);
             toast.success("Login successful! ✅"); // Hiển thị thông báo thành công
             reset(); // Reset lại form
+            
             navigate("/"); // Điều hướng về trang chủ
             setOpen(false); // Đóng modal
         } else {
             toast.error("Input field Invalid! 😥"); // Hiển thị thông báo lỗi
+            console.log(res.error);
         }
     };
-
+    
     return (
         <>
             <ModalMUICustom

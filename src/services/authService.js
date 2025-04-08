@@ -1,4 +1,5 @@
 const AuthenticationAPI = "https://nhom6thu4sangca1.onrender.com/api/Auth"; // /login /register
+// const AuthenticationAPILocal = "https://localhost:44394/api/Auth"; // /login /register
 // `/resend-activation?email=${email}`
 
 

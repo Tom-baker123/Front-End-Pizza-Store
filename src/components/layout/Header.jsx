@@ -102,7 +102,7 @@ const Header = () => {
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
                 <h2 className='flex gap-2 items-center text-lg'>
-                    <ShoppingBag /> <label>0 </label>
+                    <ShoppingBag /> <label>0 </label> 
                 </h2>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
 

@@ -12,10 +12,12 @@ function App({ children }) {
         <ThemeProvider theme={MuiTheme}>
             <AuthProvider>
                 <CartProvider> {/* Bao bọc CartProvider */}
+                    
                     <Header />
                     {children}
                     <RouterSetup />
                     <Toaster />
+                    
                 </CartProvider>
             </AuthProvider>
         </ThemeProvider>

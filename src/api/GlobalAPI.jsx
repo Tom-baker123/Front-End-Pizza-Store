@@ -7,6 +7,8 @@ const SizeAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Size";
 const ToppingAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Topping";
 const promotionAPI   = "https://nhom6thu4sangca1.onrender.com/api/promotion"
 const cartAPI        = "https://nhom6thu4sangca1.onrender.com/api/Cart";
+const orderAPI       = "https://nhom6thu4sangca1.onrender.com/api/Orders";
+const paymentAPI     = "https://nhom6thu4sangca1.onrender.com/api/Payment"
 // const UserAPi        = "https://localhost:44394/api/Auth/users";
 
 
@@ -290,7 +292,6 @@ export const postCart = async (data) => {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${Token}`, // Truyền token vào header,
         },
         body: JSON.stringify(data),
     });
@@ -304,7 +305,75 @@ export const postCart = async (data) => {
     return result;
 };
 
-{/* --[API USER]------------------------------------------------------------ */ }
+
+{/* --[API ORDER]----------------------------------------------------------- */ }
+export const postOrder = async (data) => {
+    const res = await fetch(`${orderAPI}`, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    const result = await res.json()
+
+    if(!res.ok){
+        throw Error(result.message || "Can't add to your cart");
+    }
+
+    return result;
+};
+export const getOrder = () => {
+    const [order, setOrder] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchTopping = async () => {
+            try {
+                const response = await fetch(orderAPI, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Không lấy được API");
+                }
+                const data = await response.json();
+                setOrder(data.records || []);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTopping();
+    }, []);
+
+    return { order, loading, error };
+};
+
+
+{/* --[API PAYMENT]--------------------------------------------------------- */ }
+export const postPayment = async (orderId) => {
+    const res = await fetch(`${paymentAPI}?orderId=${orderId}`, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+        },
+    });
+
+    const result = await res.text()
+
+    if(!res.ok){
+        throw Error(result.message || "Can't add to your cart");
+    }
+
+    return result;
+};
 
 
 

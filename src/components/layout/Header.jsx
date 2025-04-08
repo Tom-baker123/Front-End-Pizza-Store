@@ -132,12 +132,11 @@ const Header = () => {
                                         Profile
                                     </Link>
                                 </li>
-                                <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
-                                    {/* {kiem tra if day}  */}
-                                    {isAdmin != "Customer" ? (
+                                {isAdmin != "Customer" ? (
+                                    <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
                                         <a href="https://nhom6thu4ca1feadmin.vercel.app/admin">Admin Dashboard</a>
-                                    ) : (<></>)}
-                                </li>
+                                    </li>
+                                ) : (<></>)}
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 font-bold' onClick={logout}> Logout </li>
                             </DropdownMenu>
                         </>

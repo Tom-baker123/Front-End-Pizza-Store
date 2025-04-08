@@ -23,7 +23,7 @@ const FoodItemDetail = ({ food }) => {
         setFoodTotalPrice(food.price + (size?.additionalPrice || 0));
     };
 
-    const addToCartHandler = async () => {
+    const addToCartHandler = async () => { 
         if (!Token) {
             toast.error("You need to Login first");
             navigate("/login");
@@ -63,10 +63,7 @@ const FoodItemDetail = ({ food }) => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 px-7 bg-white text-black'>
             <img
-                src={food.imageURL}
-                alt={food.name}
-                width={300}
-                height={300}
+                src={food.imageURL} alt={food.name} width={300} height={300}
                 className='mx-auto p-5 w-[320px] bg-slate-200 sm:h-[320px] object-contain rounded-md md:sticky md:top-0'
             />
             <div className="flex flex-col gap-3 mt-3 sm:mt-0">

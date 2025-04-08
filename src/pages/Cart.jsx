@@ -1,119 +1,158 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { getOrder, postOrder, postPayment } from '../api/GlobalAPI';
+import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const { cartItems, removeFromCart, updateQuantity } = useCart();
+    // Phân quyền
+    const { auth } = useAuth();
+    const Token = auth?.token;
+    const userID = localStorage.getItem("userID");
+
+    const navigate = useNavigate();
 
     // Tính toán tổng tiền
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const vat = subtotal * 0.1; // Ví dụ VAT 10%
     const discount = 0; // Có thể thêm logic giảm giá sau
     const total = subtotal + vat - discount;
+    // Lấy ngày hiện tại
+    const currentDate = new Date().toISOString();
+    console.log(currentDate); // Ví dụ: 2025-04-08T16:17:18.969Z
+    console.log(total.toFixed(0));
+
+
+    // console.log("Order List", getOrder())
+
+    // <dd>{total.toFixed(0)} VND</dd>
+
+    const addToOrder = async () => {
+        if (!Token) {
+            toast.error("You need to Login first");
+            navigate("/login");
+            return;
+        }
+
+        const data = {
+            userID: userID,
+            totalAmount: total,
+            status: "pending",
+            orderDate: currentDate,
+            voucherID: 1,
+        };
+
+        try {
+            const res = await postOrder(data);
+            toast.success("Redirecting To Payment Page");
+            
+            const id = res.orderID;
+            const paymentUrl = await postPayment(id);
+            window.location.href = String(paymentUrl);
+
+        } catch (err) {
+            console.error("Error details:", err);
+            toast.error(err.message || "Failed to add to cart");
+        }
+    };
+
 
     return (
         <section>
-            <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-                <div className="mx-auto max-w-3xl">
-                    <header className="text-center">
-                        <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
-                    </header>
+            <div className="p-5 md:p-10 px-3 font-primary">
+                <header className="text-center">
+                    <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
+                </header>
 
-                    <div className="mt-8">
-                        {cartItems.length === 0 ? (
-                            <p className="text-center text-gray-500">Your cart is empty.</p>
-                        ) : (
-                            <ul className="space-y-4">
-                                {cartItems.map((item, index) => (
-                                    <li key={index} className="flex items-center gap-4">
-                                        <img
-                                            src={item.imageURL}
-                                            alt={item.name}
-                                            className="size-16 rounded-sm object-cover"
-                                        />
-                                        <div>
-                                            <h3 className="text-sm text-gray-900">{item.name}</h3>
-                                            <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
-                                                <div>
-                                                    <dt className="inline">Size:</dt>
-                                                    <dd className="inline">{item.size}</dd>
-                                                </div>
-                                                <div>
-                                                    <dt className="inline">Price:</dt>
-                                                    <dd className="inline">{item.price} VND</dd>
-                                                </div>
-                                            </dl>
-                                        </div>
-
-                                        <div className="flex flex-1 items-center justify-end gap-2">
-                                            <input
-                                                type="number"
-                                                min="1"
-                                                value={item.quantity}
-                                                onChange={(e) =>
-                                                    updateQuantity(item.productID, item.size, parseInt(e.target.value))
-                                                }
-                                                className="h-8 w-12 rounded-sm border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600"
-                                            />
-                                            <button
-                                                onClick={() => removeFromCart(item.productID, item.size)}
-                                                className="text-gray-600 transition hover:text-red-600"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth="1.5"
-                                                    stroke="currentColor"
-                                                    className="size-4"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-
-                        {cartItems.length > 0 && (
-                            <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                                <div className="w-screen max-w-lg space-y-4">
-                                    <dl className="space-y-0.5 text-sm text-gray-700">
-                                        <div className="flex justify-between">
-                                            <dt>Subtotal</dt>
-                                            <dd>{subtotal.toFixed(0)} VND</dd>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <dt>VAT</dt>
-                                            <dd>{vat.toFixed(0)} VND</dd>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <dt>Discount</dt>
-                                            <dd>-{discount.toFixed(0)} VND</dd>
-                                        </div>
-                                        <div className="flex justify-between !text-base font-medium">
-                                            <dt>Total</dt>
-                                            <dd>{total.toFixed(0)} VND</dd>
-                                        </div>
-                                    </dl>
-                                    <div className="flex justify-end">
-                                        <a
-                                            href="#"
-                                            className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                                        >
-                                            Checkout
-                                        </a>
+                <div className="mt-8">
+                    {cartItems.length === 0 ? (
+                        <p className="text-center text-gray-500">Your cart is empty.</p>
+                    ) : (
+                        <ul className="space-y-4">
+                            {cartItems.map((item, index) => (
+                                <li key={index} className="flex items-center gap-4">
+                                    <img
+                                        src={item.imageURL}
+                                        alt={item.name}
+                                        className="size-16 rounded-sm object-cover"
+                                    />
+                                    <div>
+                                        <h3 className="text-sm text-gray-900">{item.name}</h3>
+                                        <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
+                                            <div>
+                                                <dt className="inline">Size:</dt>
+                                                <dd className="inline">{item.size}</dd>
+                                            </div>
+                                            <div>
+                                                <dt className="inline">Price:</dt>
+                                                <dd className="inline">{item.price} VND</dd>
+                                            </div>
+                                        </dl>
                                     </div>
+
+                                    <div className="flex flex-1 items-center justify-end gap-2">
+                                        <input
+                                            type="number" min="1" value={item.quantity}
+                                            onChange={(e) =>
+                                                updateQuantity(item.productID, item.size, parseInt(e.target.value))
+                                            }
+                                            className="h-8 w-12 rounded-sm border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600"
+                                        />
+                                        <button
+                                            onClick={() => removeFromCart(item.productID, item.size)}
+                                            className="text-gray-600 transition hover:text-red-600"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4"
+                                            >
+                                                <path
+                                                    strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {cartItems.length > 0 && (
+                        <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
+                            <div className="w-screen max-w-lg space-y-4">
+                                <dl className="space-y-0.5 text-sm text-gray-700">
+                                    <div className="flex justify-between">
+                                        <dt>Subtotal</dt>
+                                        <dd>{subtotal.toFixed(0)} VND</dd>
+                                    </div>
+                                    {/* <div className="flex justify-between">
+                                        <dt>VAT</dt>
+                                        <dd>{vat.toFixed(0)} VND</dd>
+                                    </div> */}
+                                    <div className="flex justify-between">
+                                        <dt>Discount</dt>
+                                        <dd>{discount.toFixed(0)} VND</dd>
+                                    </div>
+                                    <div className="flex justify-between !text-base font-medium">
+                                        <dt>Total</dt>
+                                        <dd>{total.toFixed(0)} VND</dd>
+                                    </div>
+                                </dl>
+                                <div className="flex justify-end">
+                                    <button onClick={addToOrder}
+                                        className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                                    >
+                                        Checkout
+                                    </button>
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             </div>
+
         </section>
     );
 };

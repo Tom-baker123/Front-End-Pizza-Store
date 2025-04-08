@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
 const ProductAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Product";
 
-const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
+// const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
 
 const SizeAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Size";
 const ToppingAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Topping";
@@ -176,6 +176,7 @@ export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryI
 
     return { product, loading, error, totalRecords };
 };
+
 
 
 {/* --[API SIZE]------------------------------------------------------------ */ }

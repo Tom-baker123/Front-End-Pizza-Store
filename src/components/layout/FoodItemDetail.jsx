@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import ButtonAddToCart from '../common/ButtonAddToCart'
 import SizeButtonList from '../common/SizeButtonList';
+import { useNavigate } from 'react-router-dom';
 
 const FoodItemDetail = ({ food }) => {
-
+    const Token = localStorage.getItem('token'); // Lấy token từ localStorage
     const [foodTotalPrice, setFoodTotalPrice] = useState(food.price ? food.price : 0);
     const [quantity, setquantity] = useState(1);
+    const navigate = useNavigate(); 
 
     // Hàm xử lý khi chọn size
     const handleSizeChange = (additionalPrice) => {
@@ -14,7 +16,10 @@ const FoodItemDetail = ({ food }) => {
 
     // Hàm xử lý Add to cart
     const addToCart = () => {
-
+        if (!Token){
+            navigate("/");
+            return;
+        }
     }
 
     return (

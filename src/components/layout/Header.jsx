@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import ButtonMUI from '../common/Mui-Components/ButtonMUI';
 import DropdownMenu from '../common/DropdownMenu';
 import { Link } from 'react-router-dom';
+import SearchInput from './SearchInput';
 
 const Header = () => {
     // Xử lý đăng nhập và đăng ký
@@ -92,12 +93,8 @@ const Header = () => {
                 </div>
                 {/* --[Categories Button - End]--------------------------------------------- */}
 
-                {/* --[Ô tìm kiếm]---------------------------------------------------------- */}
-                <div className="shadow-lg hidden sm:flex md:flex border-2 border-gray-400 rounded-4xl p-2 pl-5 bg-gray-50 w-96">
-                    <input type="text" className='bg-transparent outline-none w-full'
-                        placeholder='Find Your favorite here 😋' />
-                    <Search className='stroke-gray-500' />
-                </div>
+                {/* --[Ô tìm kiếm]---------------------------------------------------------- */}    
+                <SearchInput/>
                 {/* --[Ô tìm kiếm - End]---------------------------------------------------- */}
             </div>
 

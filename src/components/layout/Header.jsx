@@ -5,12 +5,21 @@ import Login from '../../pages/authentication/Login';
 import Register from '../../pages/authentication/Register';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from '../common/DropdownMenu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
 const Header = () => {
     // Xử lý điều hướng
     const navigate = useNavigate();
+    const query = useQuery();
+    const isLoggedOut = query.get("logout"); // Lấy giá trị của ?logout
+
+    
+
 
     const isAdmin = localStorage.getItem("role");
 
@@ -35,6 +44,11 @@ const Header = () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
+    if (isLoggedOut === "true") {
+        logout();
+        navigate("/");
+    }
 
     const [categoriesList, setCategoriesList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -118,7 +132,7 @@ const Header = () => {
 
                 {/* --[Login Signup]-------------------------------------------------------- */}
                 <div className="flex gap-2 items-center">
-                    {auth?.token ? (
+                    {auth?.token  ? (
                         <>
                             <DropdownMenu>
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
@@ -134,7 +148,7 @@ const Header = () => {
                                 </li>
                                 {isAdmin != "Customer" ? (
                                     <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>
-                                        <a href="https://nhom6thu4ca1feadmin.vercel.app/admin">Admin Dashboard</a>
+                                        <a href="https://nhom6thu4ca1feadmin.vercel.app/admin?role=admin`">Admin Dashboard</a>
                                     </li>
                                 ) : (<></>)}
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 font-bold' onClick={logout}> Logout </li>

@@ -126,7 +126,7 @@ const Header = () => {
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
                 <Link to={"/cart"} className='flex gap-2 items-center text-lg' onClick={handleToCart}>
-                    <ShoppingBag /> <label>0 </label>
+                    <ShoppingBag />
                 </Link>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
 

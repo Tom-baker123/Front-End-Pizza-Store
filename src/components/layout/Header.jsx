@@ -7,10 +7,11 @@ import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from '../common/DropdownMenu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
+import CartBadge from '../common/CartBadge';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
-  }
+}
 
 const Header = () => {
     // Xử lý điều hướng
@@ -18,7 +19,7 @@ const Header = () => {
     const query = useQuery();
     const isLoggedOut = query.get("logout"); // Lấy giá trị của ?logout
 
-    
+
 
 
     const isAdmin = localStorage.getItem("role");
@@ -125,14 +126,17 @@ const Header = () => {
             {/* Right Navbar */}
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
-                <Link to={"/cart"} className='flex gap-2 items-center text-lg' onClick={handleToCart}>
-                    <ShoppingBag />
-                </Link>
+                <div className='flex gap-2 items-center text-lg' >
+                    {/* <Link to={"/cart"} onClick={handleToCart}>
+                        <ShoppingBag />
+                    </Link> */}
+                    <CartBadge />
+                </div>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
 
                 {/* --[Login Signup]-------------------------------------------------------- */}
                 <div className="flex gap-2 items-center">
-                    {auth?.token  ? (
+                    {auth?.token ? (
                         <>
                             <DropdownMenu>
                                 <li className='px-4 py-2 hover:bg-gray-100 cursor-pointer'>

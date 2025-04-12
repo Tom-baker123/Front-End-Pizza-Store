@@ -4,13 +4,14 @@ import { getOrder, postOrder, postPayment } from '../api/GlobalAPI';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import FormCheckout from '../components/layout/FormCheckout';
 
 const Cart = () => {
     const { cartItems, removeFromCart, updateQuantity } = useCart();
     // Phân quyền
     const { auth } = useAuth();
     const Token = auth?.token;
-    const userID = localStorage.getItem("userID");
+    const userID = localStorage.getItem("userID");  
 
     const navigate = useNavigate();
 
@@ -24,20 +25,15 @@ const Cart = () => {
     console.log(currentDate); // Ví dụ: 2025-04-08T16:17:18.969Z
     console.log(total.toFixed(0));
 
-
-    // console.log("Order List", getOrder())
-
-    // <dd>{total.toFixed(0)} VND</dd>
-
     const addToOrder = async () => {
         if (!Token) {
             toast.error("You need to Login first");
-            navigate("/login");
+            navigate("/cart");
             return;
         }
 
         const data = {
-            userID: userID,
+            userID: !userID ? userID : null,
             totalAmount: total,
             status: "pending",
             orderDate: currentDate,
@@ -63,10 +59,10 @@ const Cart = () => {
         <section>
             <div className="p-5 md:p-10 px-3 font-primary">
                 <header className="text-center">
-                    <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
+                    <h1 className="text-primary text-5xl font-bold sm:text-3xl">Your Cart</h1>
                 </header>
 
-                <div className="mt-8">
+                <div className="mt-5">
                     {cartItems.length === 0 ? (
                         <p className="text-center text-gray-500">Your cart is empty.</p>
                     ) : (
@@ -79,8 +75,8 @@ const Cart = () => {
                                         className="size-16 rounded-sm object-cover"
                                     />
                                     <div>
-                                        <h3 className="text-sm text-gray-900">{item.name}</h3>
-                                        <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
+                                        <h3 className="text-xl font-bold text-gray-900">{item.name}</h3>
+                                        <dl className="mt-0.5 space-y-px text-sm text-gray-600">
                                             <div>
                                                 <dt className="inline">Size:</dt>
                                                 <dd className="inline">{item.size}</dd>
@@ -120,17 +116,23 @@ const Cart = () => {
                     )}
 
                     {cartItems.length > 0 && (
-                        <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                            <div className="w-screen max-w-lg space-y-4">
-                                <dl className="space-y-0.5 text-sm text-gray-700">
+                        <div className="mt-5     flex flex-col gap-5 border-t border-gray-100 pt-5
+                            md:grid md:grid-cols-2 md:gap-2
+                        ">
+                            <div>
+                                <FormCheckout />
+                            </div>
+                            
+                            <div className="px-5">
+                                <dl className="space-y-0.5 text-md text-gray-700">
                                     <div className="flex justify-between">
                                         <dt>Subtotal</dt>
                                         <dd>{subtotal.toFixed(0)} VND</dd>
                                     </div>
-                                    {/* <div className="flex justify-between">
+                                    <div className="flex justify-between">
                                         <dt>VAT</dt>
                                         <dd>{vat.toFixed(0)} VND</dd>
-                                    </div> */}
+                                    </div>
                                     <div className="flex justify-between">
                                         <dt>Discount</dt>
                                         <dd>{discount.toFixed(0)} VND</dd>
@@ -142,7 +144,7 @@ const Cart = () => {
                                 </dl>
                                 <div className="flex justify-end">
                                     <button onClick={addToOrder}
-                                        className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                                        className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
                                     >
                                         Checkout
                                     </button>

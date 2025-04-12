@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import ModalMUICustom from '../../components/common/Mui-Components/ModalMUICustom';
 import toast, { Toaster } from 'react-hot-toast'; // Ensure Toaster is imported
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../services/authService';
+import { registerUser } from '../../api/GlobalAPI'; 
 import { useNavigate } from 'react-router-dom';
-import Verified from './Verified';
 
 const Register = () => {
     const { register, handleSubmit, reset } = useForm(); // Thuộc tính của react-hook-form
@@ -13,8 +12,8 @@ const Register = () => {
     const navigate = useNavigate(); // Dùng để điều hướng đến trang khác
 
     const onSubmit = async (data) => {
-        
-        
+
+
         if (data.password != data.confirmPassword) {
             toast.error("Password and Confirm Password do not match! 😥"); // Hiển thị thông báo lỗi khi ko trùng mật khẩu
             return;
@@ -46,7 +45,7 @@ const Register = () => {
 
     return (
         <>
-            <Toaster position="top-right" reverseOrder={false} /> {/* Add Toaster */}
+            {/* <Toaster position="top-right" reverseOrder={false} /> Add Toaster */}
             <ModalMUICustom
                 nameButton={"Register"} variant={"contained"}
                 open={open}

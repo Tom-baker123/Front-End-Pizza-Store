@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-// const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
 const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
 const ProductAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Product";
 const SizeAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Size";
@@ -9,7 +8,39 @@ const promotionAPI   = "https://nhom6thu4sangca1.onrender.com/api/promotion"
 const cartAPI        = "https://nhom6thu4sangca1.onrender.com/api/Cart";
 const orderAPI       = "https://nhom6thu4sangca1.onrender.com/api/Orders";
 const paymentAPI     = "https://nhom6thu4sangca1.onrender.com/api/Payment"
-// const UserAPi        = "https://localhost:44394/api/Auth/users";
+const AuthenticationAPI = "https://nhom6thu4sangca1.onrender.com/api/Auth"; // /login /register
+// const UserAPi            = "https://localhost:44394/api/Auth/users";
+// const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
+
+
+// --[ API Đăng ký tài khoản ]-------------------------------------------------------- */}
+export const registerUser = async (data) => {
+    const res = await fetch(`${AuthenticationAPI}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+
+    return await res.json();
+};
+
+// --[API Login]-------------------------------------------------------- */}
+export const loginUser = async (payload) => {
+    const res = await fetch(`${AuthenticationAPI}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+
+    return await res.json();
+};
+
+
+// --[API resendActivation]-------------------------------------------------------- */}
+export const resendActivation = async (email) => {
+    const res = await fetch(`${AuthenticationAPI}/resend-activation?email=${email}`);
+    return await res.json();
+};
 
 
 {/* --[API CATEGORIES]------------------------------------------------------ */ }

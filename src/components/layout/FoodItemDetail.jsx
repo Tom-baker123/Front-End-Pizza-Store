@@ -26,7 +26,7 @@ const FoodItemDetail = ({ food }) => {
     const addToCartHandler = async () => { 
         if (!Token) {
             toast.error("You need to Login first");
-            navigate("/login");
+            navigate("/");
             return;
         }
 

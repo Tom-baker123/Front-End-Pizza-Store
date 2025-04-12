@@ -3,7 +3,7 @@ import ModalMUICustom from '../../components/common/Mui-Components/ModalMUICusto
 import toast from 'react-hot-toast';
 // Xử lý form đăng nhập
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../services/authService';
+import { loginUser } from '../../api/GlobalAPI'; 
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 

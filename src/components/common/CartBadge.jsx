@@ -16,9 +16,9 @@ const CartBadge = () => {
             if (ref.current && !ref.current.contains(e.target)) {
                 setOpen(false);
             };
-            document.addEventListener("mousedown", handler); // Sự kiện nhấp chuột
-            return () => document.removeEventListener("mousedown", handler);
         }
+        document.addEventListener("mousedown", handler); // Sự kiện nhấp chuột
+        return () => { document.removeEventListener("mousedown", handler) };
     }, []);
 
     return (
@@ -63,8 +63,8 @@ const CartBadge = () => {
                                             <span className='font-semibold'>
                                                 {cartItems
                                                     .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                                                    .toLocaleString()} {" "} 
-                                                    VND
+                                                    .toLocaleString()} {" "}
+                                                VND
                                             </span>
                                         </div>
                                     </div>

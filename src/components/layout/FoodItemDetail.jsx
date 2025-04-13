@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ButtonAddToCart from '../common/ButtonAddToCart';
 import SizeButtonList from '../common/SizeButtonList';
 import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { postCart } from '../../api/GlobalAPI';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
+import { LoaderCircle } from 'lucide-react';
 
 const FoodItemDetail = ({ food }) => {
+    // Loading:
+    const [loading, setLoading] = useState(false);
+    
     const { auth } = useAuth();
     const { addToCart } = useCart();
     const Token = auth?.token;
@@ -20,21 +24,22 @@ const FoodItemDetail = ({ food }) => {
 
     const handleSizeChange = (size) => {
         setSelectedSize(size);
+        console.log(selectedSize?.name);
         setFoodTotalPrice(food.price + (size?.additionalPrice || 0));
     };
 
     const addToCartHandler = async () => { 
-        if (!Token) {
-            toast.error("You need to Login first");
-            navigate("/");
-            return;
-        }
+        // if (!Token) {
+        //     toast.error("You need to Login first");
+        //     navigate("/");
+        //     return;
+        // }
 
         if (!selectedSize) {
             toast.error("Please select a size before adding to cart!");
             return;
         }
-
+        setLoading(true);
         const data = {
             quantity: quantity,
             productID: food.id,
@@ -57,6 +62,8 @@ const FoodItemDetail = ({ food }) => {
             navigate("/cart"); // Chuyển hướng đến trang giỏ hàng
         } catch (err) {
             toast.error(err.message || "Failed to add to cart");
+        } finally{
+            setLoading(false);
         }
     };
 
@@ -83,7 +90,7 @@ const FoodItemDetail = ({ food }) => {
                         <h2>{quantity}</h2>
                         <button className='cursor-pointer' onClick={() => setQuantity(quantity + 1)}>+</button>
                     </div>
-                    <ButtonAddToCart onClick={addToCartHandler}>Add to Cart</ButtonAddToCart>
+                    <ButtonAddToCart onClick={addToCartHandler}> { loading ? <><LoaderCircle className='animate-spin'/> Loading...</> : "Add to cart"} </ButtonAddToCart>
                 </div>
             </div>
         </div>

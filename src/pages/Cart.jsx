@@ -5,13 +5,15 @@ import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import FormCheckout from '../components/layout/FormCheckout';
+import { useForm } from 'react-hook-form';
 
 const Cart = () => {
+    const { register, handleSubmit, formState: { errors }, } = useForm();
     const { cartItems, removeFromCart, updateQuantity } = useCart();
     // Phân quyền
     const { auth } = useAuth();
     const Token = auth?.token;
-    const userID = localStorage.getItem("userID");  
+    const userID = localStorage.getItem("userID");
 
     const navigate = useNavigate();
 
@@ -22,32 +24,32 @@ const Cart = () => {
     const total = subtotal + vat - discount;
     // Lấy ngày hiện tại
     const currentDate = new Date().toISOString();
-    console.log(currentDate); // Ví dụ: 2025-04-08T16:17:18.969Z
-    console.log(total.toFixed(0));
 
-    const addToOrder = async () => {
-        if (!Token) {
-            toast.error("You need to Login first");
-            navigate("/cart");
-            return;
-        }
-
-        const data = {
-            userID: !userID ? userID : null,
-            totalAmount: total,
-            status: "pending",
-            orderDate: currentDate,
-            voucherID: 1,
-        };
+    const handleCheckout = async (data) => {
+        // if (!Token) {
+        //     toast.error("You need to Login first");
+        //     navigate("/cart");
+        //     return;
+        // }
+        localStorage.setItem("checkoutInfo", JSON.stringify(data))// Lưu checkout info
+        toast.success("✅ You have saved your order info!");
 
         try {
+            const data = {
+                userID: userID ? userID : null,
+                totalAmount: total,
+                status: "pending",
+                orderDate: currentDate,
+                voucherID: 1,
+            };
             const res = await postOrder(data);
             toast.success("Redirecting To Payment Page");
-            
+
             const id = res.orderID;
             const paymentUrl = await postPayment(id);
+            const RemoveAllProductFromCart = localStorage.removeItem("cartItems");
+            console.log(RemoveAllProductFromCart);
             window.location.href = String(paymentUrl);
-
         } catch (err) {
             console.error("Error details:", err);
             toast.error(err.message || "Failed to add to cart");
@@ -120,11 +122,11 @@ const Cart = () => {
                             md:grid md:grid-cols-2 md:gap-2
                         ">
                             <div>
-                                <FormCheckout />
+                                <FormCheckout register={register} errors={errors} />
                             </div>
-                            
+
                             <div className="px-5">
-                                <dl className="space-y-0.5 text-md text-gray-700">
+                                <div className="space-y-0.5 text-md text-gray-700">
                                     <div className="flex justify-between">
                                         <dt>Subtotal</dt>
                                         <dd>{subtotal.toFixed(0)} VND</dd>
@@ -141,9 +143,9 @@ const Cart = () => {
                                         <dt>Total</dt>
                                         <dd>{total.toFixed(0)} VND</dd>
                                     </div>
-                                </dl>
+                                </div>
                                 <div className="flex justify-end">
-                                    <button onClick={addToOrder}
+                                    <button onClick={handleSubmit(handleCheckout)}
                                         className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
                                     >
                                         Checkout

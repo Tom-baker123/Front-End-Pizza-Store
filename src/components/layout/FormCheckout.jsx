@@ -1,13 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-const FormCheckout = ({onSubmit}) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    // const onSubmit = (data) => { console.log("Your data: ", data); }
-
+const FormCheckout = ({register, errors}) => {
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className='border-2 rounded-sm border-gray-500 px-5 py-2'>
+        <form className='border-2 rounded-sm border-gray-500 px-5 py-2'>
             <h2 className='text-3xl font-bold text-center mb-3'>Order Details</h2>
 
             <div className="grid grid-cols-2 gap-5">

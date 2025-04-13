@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { loginUser } from '../../api/GlobalAPI'; 
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { LoaderCircle } from 'lucide-react';
 
 
 const Login = () => {
@@ -13,15 +14,15 @@ const Login = () => {
     const { login } = useAuth(); // Lấy hàm login từ AuthContext cho localStorage
     const navigate = useNavigate(); // Dùng để điều hướng đến trang khác
     const [open, setOpen] = useState(false); // Đặt mặc đinh cho modal là đóng
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const res = await loginUser(data); // Gọi hàm loginUser từ API 
         if (res.success) {
-            console.log(res); // In ra kết quả trả về từ API
             login(res);
             toast.success("Login successful! ✅"); // Hiển thị thông báo thành công
             reset(); // Reset lại form
-            
             navigate("/"); // Điều hướng về trang chủ
             setOpen(false); // Đóng modal
         } else {
@@ -71,7 +72,7 @@ const Login = () => {
                             <div>
                                 {/* BUTTON SUBMIT */}
                                 <button type="submit" className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-greetext-green-600">
-                                    Sign in
+                                    {loading ? <LoaderCircle className='animate-spin'/> : "Sign in"}
                                 </button>
                             </div>
                         </form>

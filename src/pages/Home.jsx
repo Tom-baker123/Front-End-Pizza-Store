@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Slider from '../components/layout/Slider'
 import CategoryList from '../components/layout/CategoryList'
 import { getAllCategories, getAllProducts } from '../api/GlobalAPI';
@@ -16,13 +16,15 @@ const Home = () => {
   const isPaid = query.get("payment"); // Lấy giá trị của paid
   const navigate = useNavigate();
 
-  if (isPaid === "true") {
-    toast(
-      "💖 Thanks for your order. \nAnd I hope you enjoy your meal",
-      { duration: 6000, }
-    );
-    navigate("/");
-  }
+  useEffect(()=>{
+    if (isPaid === "true") {
+      toast(
+        "💖 Thanks for your order. \nAnd I hope you enjoy your meal, soon! 😋",
+        { duration: 6000, }
+      );
+      navigate("/");
+    }
+  }, [])
 
   const { categories, loading, error } = getAllCategories();
   const { products, loading_2, error_1, totalRecords } = getAllProducts(8, 1);

@@ -5,22 +5,16 @@ import Login from '../../pages/authentication/Login';
 import Register from '../../pages/authentication/Register';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from '../common/DropdownMenu';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
 import CartBadge from '../common/CartBadge';
-
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
+import { QueryURL } from '../../routes/QueryURL';
 
 const Header = () => {
     // Xử lý điều hướng
     const navigate = useNavigate();
-    const query = useQuery();
+    const query = QueryURL(); // Lấy query url // const query = useQuery();
     const isLoggedOut = query.get("logout"); // Lấy giá trị của ?logout
-
-
-
 
     const isAdmin = localStorage.getItem("role");
 

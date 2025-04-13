@@ -21,7 +21,7 @@ const FoodCategory = () => {
   return (
     <div className="p-5 md:px-10 px-3 font-primary">
       <div>
-        <div className="">
+        <div>
           <CategoryPanel categoriesList={categories} selectedCategory={categoryId} />
         </div>
         <div >

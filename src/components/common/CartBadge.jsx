@@ -23,8 +23,8 @@ const CartBadge = () => {
 
     return (
         <div className="relative inline-block" ref={ref}>
-            <button onClick={() => setOpen(!open)} className='cursor-pointer'>
-                <ShoppingBag className="h-6 w-6 text-gray-800 " />
+            <button onClick={() => setOpen(!open)} className='cursor-pointer flex items-center'>
+                <ShoppingBag className="h-7 w-7 text-gray-800" />
                 {totalItems > 0 && (
                     <span className='absolute -top-2 -right-3 bg-gray-300 rounded-full px-1.5 text-white text-xs font-bold'>
                         {totalItems}

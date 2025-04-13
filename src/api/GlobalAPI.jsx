@@ -140,7 +140,7 @@ export const getAllProducts = (pageSize, pageNumber = 1) => {
     const [error, setError] = useState(null);
     const [totalRecords, setTotalRecords] = useState(0);
 
-    const apiUrlChange = pageSize == "" || pageNumber == "" ? `${ProductAPIUrl}` : `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}`;
+    const apiUrlChange = pageSize == "" ? `${ProductAPIUrl}` : `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}`;
 
     useEffect(() => {
         const fetchProducts = async () => {

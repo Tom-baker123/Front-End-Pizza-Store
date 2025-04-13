@@ -1,9 +1,6 @@
 import React from 'react'
 import ButtonCustom from '../common/ButtonCustom'
-import ModalTemplate from '../common/ModalTemplate'
 import ModalMUI from '../common/Mui-Components/ModalMUI'
-
-
 
 const FoodItem = ({ food }) => {
   return (
@@ -20,7 +17,7 @@ const FoodItem = ({ food }) => {
       </div>
 
       <ModalMUI food={food}>
-        <ButtonCustom>Add to cart</ButtonCustom>
+        <ButtonCustom> Add to cart </ButtonCustom>
       </ModalMUI>
 
 

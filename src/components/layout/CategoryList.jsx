@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const CategoryList = ({ categoriesList }) => {
     return (
         <div className='mt-5'>
-            <h2 className='text-green-600 font-bold text-2xl'> Menu </h2>
+            <h2 className='text-green-600 font-bold text-2xl mb-2'> Menu </h2>
             <div className="grid grid-cols-3 gap-5
                     sm:grid-cols-4
                     md:grid-cols-6 

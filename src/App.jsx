@@ -8,13 +8,20 @@ import { Toaster } from 'react-hot-toast';
 
 function App({ children }) {
     return (
+        // Thiết lập theme MUIs
         <ThemeProvider theme={MuiTheme}>
+            {/* Thiết lập Context của Phân quyền */}
             <AuthProvider>
-                <CartProvider> {/* Bao bọc CartProvider */}
+                {/* Bao bọc CartProvider */}
+                <CartProvider> 
 
+                    {/* Thiết lập header */}
                     <Header />
+                    {/* Thiết lập các component con */}
                     {children}
+                    {/* Thiết lập URL */}
                     <RouterSetup />
+                    {/* Thiết lập thông báo Hot Toast Mặc định */}
                     <Toaster />
 
                 </CartProvider>

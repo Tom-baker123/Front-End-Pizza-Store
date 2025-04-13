@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 
-const CategoryAPIUrl = "https://nhom6thu4sangca1.onrender.com/api/Category";
-const ProductAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Product";
-const SizeAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Size";
-const ToppingAPIUrl  = "https://nhom6thu4sangca1.onrender.com/api/Topping";
-const promotionAPI   = "https://nhom6thu4sangca1.onrender.com/api/promotion"
-const cartAPI        = "https://nhom6thu4sangca1.onrender.com/api/Cart";
-const orderAPI       = "https://nhom6thu4sangca1.onrender.com/api/Orders";
-const paymentAPI     = "https://nhom6thu4sangca1.onrender.com/api/Payment"
-const AuthenticationAPI = "https://nhom6thu4sangca1.onrender.com/api/Auth"; // /login /register
-// const UserAPi            = "https://localhost:44394/api/Auth/users";
-// const ProductAPIUrlLocal = "https://localhost:44394/api/Product";
+// --[ API URL]----------------------------------------------------------------------- */}
+const CategoryAPIUrl    = "https://nhom6thu4sangca1.onrender.com/api/Category";
+const ProductAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Product";
+const SizeAPIUrl        = "https://nhom6thu4sangca1.onrender.com/api/Size";
+const ToppingAPIUrl     = "https://nhom6thu4sangca1.onrender.com/api/Topping";
+const promotionAPI      = "https://nhom6thu4sangca1.onrender.com/api/promotion"
+const cartAPI           = "https://nhom6thu4sangca1.onrender.com/api/Cart";
+const orderAPI          = "https://nhom6thu4sangca1.onrender.com/api/Orders";
+const paymentAPI        = "https://nhom6thu4sangca1.onrender.com/api/Payment"
+const AuthenticationAPI = "https://nhom6thu4sangca1.onrender.com/api/Auth";
 
 
 // --[ API Đăng ký tài khoản ]-------------------------------------------------------- */}
@@ -23,6 +22,7 @@ export const registerUser = async (data) => {
 
     return await res.json();
 };
+
 
 // --[API Login]-------------------------------------------------------- */}
 export const loginUser = async (payload) => {
@@ -210,7 +210,6 @@ export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryI
 
     return { product, loading, error, totalRecords };
 };
-
 
 
 {/* --[API SIZE]------------------------------------------------------------ */ }
@@ -405,6 +404,3 @@ export const postPayment = async (orderId) => {
 
     return result;
 };
-
-
-

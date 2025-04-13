@@ -6,6 +6,7 @@ import FoodList from '../components/layout/FoodList';
 import Footer from '../components/layout/Footer';
 import { QueryURL } from '../routes/QueryURL';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,13 +14,14 @@ const Home = () => {
   // URL Query:
   const query = QueryURL();
   const isPaid = query.get("payment"); // Lấy giá trị của paid
+  const navigate = useNavigate();
 
   if (isPaid === "true") {
-    navigate("/");
     toast(
       "💖 Thanks for your order. \nAnd I hope you enjoy your meal",
       { duration: 6000, }
     );
+    navigate("/");
   }
 
   const { categories, loading, error } = getAllCategories();

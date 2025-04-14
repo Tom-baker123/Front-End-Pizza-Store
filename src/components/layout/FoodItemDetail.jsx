@@ -22,6 +22,8 @@ const FoodItemDetail = ({ food }) => {
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState(null);
 
+    console.log(selectedSize);
+
     const handleSizeChange = (size) => {
         setSelectedSize(size);
         console.log(selectedSize?.name);
@@ -82,7 +84,7 @@ const FoodItemDetail = ({ food }) => {
                 </div>
 
                 <h2 className='font-bold'>Size</h2>
-                <SizeButtonList onSizeChange={handleSizeChange} /> <hr />
+                <SizeButtonList onSizeChange={handleSizeChange} selectedSize={selectedSize}/> <hr />
 
                 <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:gap-2 md:justify-between lg:flex lg:flex-row lg:items-center lg:gap-2 lg:justify-between">
                     <div className="flex p-2 border gap-10 justify-between items-center rounded-md font-bold px-5">

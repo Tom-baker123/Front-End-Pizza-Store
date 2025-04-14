@@ -1,6 +1,8 @@
 import React from 'react'
 import ButtonCustom from '../common/ButtonCustom'
 import ModalMUI from '../common/Mui-Components/ModalMUI'
+import { Tooltip } from '@mui/material'
+import TooltipMUI from '../common/Mui-Components/TooltipMUI'
 
 const FoodItem = ({ food }) => {
   return (
@@ -10,7 +12,13 @@ const FoodItem = ({ food }) => {
       {/* --[Food Item]----------------------------------------------------------- */}
       <img src={food.imageURL} alt={food.name} width={450} height={200}
         className='h-[200px] w-[200px] object-contain' />
-      <h2 className='font-bold text-2xl text-gray-800'> {food.name} </h2>
+
+      {/* Giúp giảm chữ không bị dài */}
+      <TooltipMUI title={food.name}>
+        <h2 className='font-bold text-2xl text-gray-800 truncate w-55 text-center'> {food.name} </h2>
+      </TooltipMUI>
+      
+
       <div className="flex gap-3">
         <h2 className='font-bold text-gray-600'> {food.price} VND</h2>
         <h2 className='line-through text-gray-500'>{food.price}</h2>

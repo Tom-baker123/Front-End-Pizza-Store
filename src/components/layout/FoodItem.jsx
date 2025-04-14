@@ -15,7 +15,7 @@ const FoodItem = ({ food }) => {
 
       {/* Giúp giảm chữ không bị dài */}
       <TooltipMUI title={food.name}>
-        <h2 className='font-bold text-2xl text-gray-800 truncate w-55 text-center'> {food.name} </h2>
+        <h2 className='font-bold text-2xl text-gray-800 truncate w-35 md:w-55  text-center'> {food.name} </h2>
       </TooltipMUI>
       
 
@@ -24,7 +24,7 @@ const FoodItem = ({ food }) => {
         <h2 className='line-through text-gray-500'>{food.price}</h2>
       </div>
 
-      <ModalMUI food={food}>
+      <ModalMUI food={food} >
         <ButtonCustom> Add to cart </ButtonCustom>
       </ModalMUI>
 

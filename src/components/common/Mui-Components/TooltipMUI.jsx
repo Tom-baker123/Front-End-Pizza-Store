@@ -8,7 +8,7 @@ const TooltipMUI = styled(({ className, children, ...props }) => (
     </Tooltip>
 ))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
-        fontSize: '1rem',
+        fontSize: '0.8rem',
         padding: '12px 16px',
         backgroundColor: '#333',
         color: '#fff',

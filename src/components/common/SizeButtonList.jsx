@@ -1,7 +1,7 @@
 import React from 'react';
 import { getAllSize } from '../../api/GlobalAPI';
 
-const SizeButtonList = ({ onSizeChange }) => {
+const SizeButtonList = ({ onSizeChange, selectedSize }) => {
     const { size, loading, error } = getAllSize();
 
     return (
@@ -11,10 +11,11 @@ const SizeButtonList = ({ onSizeChange }) => {
                     size.map((item, index) => (
                         <div
                             onClick={() => onSizeChange(item)} // Truyền toàn bộ object item
-                            className="flex flex-col items-center bg-green-50 gap-2 p-3 rounded-lg group cursor-pointer hover:bg-green-200"
+                            className={`flex flex-col items-center gap-2 p-3 rounded-lg group cursor-pointer 
+                                        ${selectedSize?.sizeID === item.sizeID ? 'bg-green-600 text-white' : 'bg-green-50 hover:bg-green-200 text-primary'}`}
                             key={index}
                         >
-                            <h2 className='font-bold text-green-800'>{item.name}</h2>
+                            <h2 className='font-bold'>{item.name}</h2>
                         </div>
                     ))
                 ) : (

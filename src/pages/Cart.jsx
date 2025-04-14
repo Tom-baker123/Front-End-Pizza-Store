@@ -118,40 +118,81 @@ const Cart = () => {
                     )}
 
                     {cartItems.length > 0 && (
-                        <div className="mt-5     flex flex-col gap-5 border-t border-gray-100 pt-5
+                        <div className="mt-5 flex flex-col gap-5 border-t border-gray-100 pt-5
                             md:grid md:grid-cols-2 md:gap-2
                         ">
-                            <div>
-                                <FormCheckout register={register} errors={errors} />
-                            </div>
+                            {!Token ? (<>
 
-                            <div className="px-5">
-                                <div className="space-y-0.5 text-md text-gray-700">
-                                    <div className="flex justify-between">
-                                        <dt>Subtotal</dt>
-                                        <dd>{subtotal.toFixed(0)} VND</dd>
+                                <div>
+                                    <FormCheckout register={register} errors={errors} />
+                                </div>
+
+                                <div className="px-5">
+                                    <div className="space-y-0.5 text-md text-gray-700">
+                                        <div className="flex justify-between">
+                                            <dt>Subtotal</dt>
+                                            <dd>{subtotal.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <dt>VAT</dt>
+                                            <dd>{vat.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <dt>Discount</dt>
+                                            <dd>{discount.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between !text-base font-medium">
+                                            <dt>Total</dt>
+                                            <dd>{total.toFixed(0)} VND</dd>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <dt>VAT</dt>
-                                        <dd>{vat.toFixed(0)} VND</dd>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <dt>Discount</dt>
-                                        <dd>{discount.toFixed(0)} VND</dd>
-                                    </div>
-                                    <div className="flex justify-between !text-base font-medium">
-                                        <dt>Total</dt>
-                                        <dd>{total.toFixed(0)} VND</dd>
+                                    <div className="flex justify-end">
+                                        <button onClick={handleSubmit(handleCheckout)}
+                                            className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
+                                        >
+                                            Checkout
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="flex justify-end">
-                                    <button onClick={handleSubmit(handleCheckout)}
-                                        className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
-                                    >
-                                        Checkout
-                                    </button>
+                            </>) : (<>
+                                <div className="bg-gray-100 p-5 rounded-md">
+                                    <h2 className="text-2xl font-bold text-green-700">You're already logged in!</h2>
+                                    <p className="text-gray-700 mt-2">No need to fill out the form.</p>
                                 </div>
-                            </div>
+                                <div className="px-5">
+                                    <div className="space-y-0.5 text-md text-gray-700">
+                                        <div className="flex justify-between">
+                                            <dt>Subtotal</dt>
+                                            <dd>{subtotal.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <dt>VAT</dt>
+                                            <dd>{vat.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <dt>Discount</dt>
+                                            <dd>{discount.toFixed(0)} VND</dd>
+                                        </div>
+                                        <div className="flex justify-between !text-base font-medium">
+                                            <dt>Total</dt>
+                                            <dd>{total.toFixed(0)} VND</dd>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <button onClick={() => handleCheckout(
+                                            {
+                                                FullName: "FromToken",
+                                                Phone: "0000000000",
+                                                Address: "FromToken",
+                                            }
+                                        )}
+                                            className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
+                                        >
+                                            Checkout
+                                        </button>
+                                    </div>
+                                </div>
+                            </>)}
                         </div>
                     )}
                 </div>

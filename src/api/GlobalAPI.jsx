@@ -173,16 +173,18 @@ export const getAllProducts = (pageSize, pageNumber = 1) => {
 
     return { products, loading, error, totalRecords };
 };
-export const getAllProductsByCategory = (pageSize = 5, pageNumber = 1, categoryId) => {
+export const getAllProductsByCategory = (pageSize = 10, pageNumber = 1, categoryId) => {
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [totalRecords, setTotalRecords] = useState(0);
 
+    const apiUrlChange = pageSize == "" ? `${ProductAPIUrl}/category/${categoryId}` : `${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`;
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`, // API phân trang
+                const response = await fetch(`${apiUrlChange}`,
                     {
                         method: "GET",
                         headers: {
@@ -404,3 +406,26 @@ export const postPayment = async (orderId) => {
 
     return result;
 };
+
+
+{/* --[API PAGINATION]------------------------------------------------------ */ }
+export const getTotalRecords = async (categoryId) => {
+    const switchUrl = (!categoryId || categoryId == "all" 
+        ? `${ProductAPIUrl}` 
+        : `${`${ProductAPIUrl}/category/${categoryId}`}`);
+    const res = await fetch(switchUrl);
+    if (!res.ok) throw new Error('Failed to fetch total records');
+    const data = await res.json();
+    return data.totalRecords;
+}
+
+export const getFoodByPage = async (pageNumber, pageSize, categoryId) => {
+    const switchUrl = (!categoryId || categoryId == "all" 
+        ? `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}` 
+        : `${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`
+    );
+    const res = await fetch(switchUrl); 
+    if (!res.ok) throw new Error('Failed to fetch food data');
+    const data = await res.json();
+    return data.records;
+}

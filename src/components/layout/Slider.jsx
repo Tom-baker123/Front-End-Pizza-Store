@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../layout/Slider.css"
-import {slider} from "../../../public/Images/FakeData";
+import { slider } from "../../../public/Images/FakeData"; 
 
 
 const Slider = () => {

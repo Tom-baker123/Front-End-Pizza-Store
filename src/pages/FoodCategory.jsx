@@ -17,8 +17,8 @@ const FoodCategory = () => {
   const { categories, loading_3, error_3 } = getAllCategories();
 
   // 🟢 Gọi 1 lần để lấy totalRecords
-  const { products, loading_1, error_1, totalRecords_1 } = getAllProducts("", "");
-  const { product, loading, error, totalRecords } = getAllProductsByCategory("", "", categoryId);
+  // const { products, loading_1, error_1, totalRecords_1 } = getAllProducts("", "");
+  // const { product, loading, error, totalRecords } = getAllProductsByCategory("", "", categoryId);
 
   // Lấy số trang
   const [foods, setFoods] = useState([]); // Mảng tạm
@@ -63,7 +63,7 @@ const FoodCategory = () => {
     fetchFoods();
   }, [pageNumber, pageSize, categoryId]);
 
-  const totalPage = Math.ceil(totalRecords / pageSize);
+  const totalPage = Math.ceil(totalsRecord / pageSize);
 
   return (
     <div className="p-5 md:px-10 px-3 font-primary">

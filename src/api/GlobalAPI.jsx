@@ -99,13 +99,13 @@ export const getCategoryById = (categoryId) => {
     const [category, setCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     useEffect(() => {
-        if (!categoryId) return;
+        const switchURL = !categoryId || categoryId === "all" 
+        ? CategoryAPIUrl : `${CategoryAPIUrl}/${categoryId}`;
 
         const fetchCategory = async () => {
             try {
-                const response = await fetch(`${CategoryAPIUrl}/${categoryId}`, {
+                const response = await fetch(switchURL, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -410,9 +410,10 @@ export const postPayment = async (orderId) => {
 
 {/* --[API PAGINATION]------------------------------------------------------ */ }
 export const getTotalRecords = async (categoryId) => {
-    const switchUrl = (!categoryId || categoryId == "all" 
+    const switchUrl = (!categoryId || categoryId === "all" 
         ? `${ProductAPIUrl}` 
         : `${`${ProductAPIUrl}/category/${categoryId}`}`);
+    console.log("Total: ", switchUrl);
     const res = await fetch(switchUrl);
     if (!res.ok) throw new Error('Failed to fetch total records');
     const data = await res.json();
@@ -424,6 +425,7 @@ export const getFoodByPage = async (pageNumber, pageSize, categoryId) => {
         ? `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}` 
         : `${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`
     );
+    console.log("Page: ", switchUrl);
     const res = await fetch(switchUrl); 
     if (!res.ok) throw new Error('Failed to fetch food data');
     const data = await res.json();

@@ -49,7 +49,7 @@ const FoodCategory = () => {
     };
 
     fetchTotal();
-  }, []);
+  }, [categoryId]);
 
   useEffect(() => {
     const fetchFoods = async () => {

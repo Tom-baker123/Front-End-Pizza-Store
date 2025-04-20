@@ -186,7 +186,7 @@ const Cart = () => {
                                                 Address: "FromToken",
                                             }
                                         )}
-                                            className="block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
+                                            className="mt-3  block rounded-sm bg-gray-700 px-5 py-3 text-md text-gray-100 transition hover:bg-gray-600"
                                         >
                                             Checkout
                                         </button>

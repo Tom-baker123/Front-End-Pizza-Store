@@ -34,8 +34,7 @@ const Login = () => {
     return (
         <>
             <ModalMUICustom
-                nameButton={"Login"} variant={"outlined"}
-                open={open}
+                nameButton={"Login"} variant={"outlined"} open={open}
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
             >

@@ -413,7 +413,7 @@ export const getTotalRecords = async (categoryId) => {
     const switchUrl = (!categoryId || categoryId === "all" 
         ? `${ProductAPIUrl}` 
         : `${`${ProductAPIUrl}/category/${categoryId}`}`);
-    console.log("Total: ", switchUrl);
+    // console.log("Total: ", switchUrl);
     const res = await fetch(switchUrl);
     if (!res.ok) throw new Error('Failed to fetch total records');
     const data = await res.json();
@@ -425,7 +425,7 @@ export const getFoodByPage = async (pageNumber, pageSize, categoryId) => {
         ? `${ProductAPIUrl}?PageSize=${pageSize}&PageNumber=${pageNumber}` 
         : `${ProductAPIUrl}/category/${categoryId}?PageSize=${pageSize}&PageNumber=${pageNumber}`
     );
-    console.log("Page: ", switchUrl);
+    // console.log("Page: ", switchUrl);
     const res = await fetch(switchUrl); 
     if (!res.ok) throw new Error('Failed to fetch food data');
     const data = await res.json();

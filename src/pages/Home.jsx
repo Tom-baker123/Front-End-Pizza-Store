@@ -26,8 +26,9 @@ const Home = () => {
     }
   }, [])
 
-  const { categories, loading, error } = getAllCategories();
-  const { products, loading_2, error_1, totalRecords } = getAllProducts(8, 1);
+  const { categories, loading: loadingCategories, error_1 } = getAllCategories(); // Nhớ tạo custom Loading
+  const { products, loading: loadingFoods, error_2, totalRecords } = getAllProducts(8, 1);
+
 
 
   return (
@@ -37,11 +38,11 @@ const Home = () => {
       {/* Slider - End */}
 
       {/* Category List */}
-      <CategoryList categoriesList={categories} />
+      <CategoryList categoriesList={categories} Loading={loadingCategories}/>
       {/* Category List - End */}
 
       {/* Food List */}
-      <FoodList foodList={products} menuName={"Popular menu"} />
+      <FoodList foodList={products} menuName={"Popular menu"} Loading={loadingFoods} />
       {/* Food List - End */}
 
       {/* Banner */}

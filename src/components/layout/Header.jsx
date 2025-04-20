@@ -9,14 +9,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
 import CartBadge from '../common/CartBadge';
 import { QueryURL } from '../../routes/QueryURL';
+import { useBreakpoint } from '../../context/BreakpointContext';
 
 const Header = () => {
+    // Xử lý responsive breakpoint
+    const { breakpoint, orientation } = useBreakpoint();
+
     // Xử lý điều hướng
     const navigate = useNavigate();
     const query = QueryURL(); // Lấy query url // const query = useQuery();
     const isLoggedOut = query.get("logout"); // Lấy giá trị của ?logout
-
-    const isAdmin = localStorage.getItem("role");
+    const isAdmin = localStorage.getItem("role"); // Lấy value role
 
     // Xử lý đăng nhập và đăng ký
     const { auth, logout } = useAuth();
@@ -64,14 +67,12 @@ const Header = () => {
     }, []);
 
     // Chức năng Quay lại trang chủ
-    const handleToHome = () => {
-        navigate("/");
-    };
+    const handleToHome = () => { navigate("/"); };
 
     // Chức năng chuyển hướng đến trang giỏ hàng
-    const handleToCart = () => {
-        navigate("/cart");
-    };
+    const handleToCart = () => { navigate("/cart"); };
+
+
 
     return (
         <div className='p-5 shadow-md flex justify-between items-center font-primary'>
@@ -121,10 +122,13 @@ const Header = () => {
             <div className="flex gap-5 items-center">
                 {/* --[Cart Icon]----------------------------------------------------------- */}
                 <div className='flex gap-2 items-center text-lg' >
-                    {/* <Link to={"/cart"} onClick={handleToCart}>
-                        <ShoppingBag />
-                    </Link> */}
-                    <CartBadge />
+                    {breakpoint === "base" ?
+                        <Link to={"/cart"} onClick={handleToCart}>
+                            <ShoppingBag />
+                        </Link>
+                        : 
+                        <CartBadge />
+                    }
                 </div>
                 {/* --[Cart Icon - End]----------------------------------------------------- */}
 
